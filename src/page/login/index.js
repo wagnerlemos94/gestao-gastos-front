@@ -1,25 +1,42 @@
 import React from "react";
 import Card from "../../component/Card";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+
+import useContainer from "./container";
+
+
 
 const Login = () => {
-    return(
-    <Card title={"Bem - Vindo"} button="Logar">
-        <Container>
-            <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Login</Form.Label>
-                    <Form.Control type="email" placeholder="Login" required/>
-                </Form.Group>
+    const {
+        functions
+    } = useContainer();
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Senha" />
-                </Form.Group>
-                <Button variant="primary">Logar</Button>
-            </Form>
-        </Container>        
-    </Card>
+    const form = {
+        login:undefined,
+        senha:undefined
+    }
+    
+    return(
+        <Container className="mt-5">
+            <Row className="justify-content-md-center">
+                <Col md="auto" className="mt-5">
+                    <Card title={"Bem - Vindo"} button="Logar" className="bg-secondary mt-5">
+                        <Form className="mt-4">
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Login</Form.Label>
+                                <Form.Control type="email" onChange={e => form.login = e.target.value} placeholder="Login" name="email" required/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-5 mt-5" controlId="formBasicPassword">
+                                <Form.Label>Senha</Form.Label>
+                                <Form.Control type="password" onChange={e => form.senha = e.target.value} placeholder="Senha" name="senha" required/>
+                            </Form.Group>
+                            <Button type="button" onClick={() => functions.login(form)} variant="primary" className="col-12">Logar</Button>
+                        </Form>    
+                    </Card>
+                </Col>
+            </Row>    
+    </Container>
     );
 }
 
