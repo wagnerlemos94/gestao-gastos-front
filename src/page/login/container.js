@@ -1,28 +1,42 @@
 
 import qs from 'qs';
 
-import { post } from "../../resource/index";
+import { useState, useContext } from 'react';
+
+import StoreContext from '../../services/store/Context';
+
+import { post } from "../../services/resource/index";
+import { useHistory } from 'react-router-dom';
 
 const useContainer = () => {
 
+    const history = useHistory();
+    const { setToken, setMessage } = useContext(StoreContext);
+
+
     const login = (props) => {
-        if(props.login != undefined && props.senha != undefined){
-            const body = qs.stringify({
-                grant_type: 'password',
-                username: props.login,
-                password: props.senha,
-            });
+        const body = qs.stringify({
+            grant_type: 'password',
+            username: props.login,
+            password: props.senha,
+        });
 
-            post("oauth/token", body).then(response => {
-                console.log(response);
-            }).catch(erro => {
-                console.log(erro);
+        post("oauth/token", body).then(response => {
+            const data = response.data;
+            console.log(data.access_token);
+            localStorage.setItem('username', props.login);
+            setToken(data.access_token);
+            history.push('/principal');
 
-            });            
-
-        }else{
+        }).catch(erro => {
+            console.log(erro);
             alert("Usuario ou senha invalido");
-        }
+            setMessage({
+                title: 'Opa!',
+                type: 'error',
+                message: 'Sua senha está incorreta'
+            });
+        });
     }
 
     return {

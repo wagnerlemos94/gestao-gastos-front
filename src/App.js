@@ -1,11 +1,13 @@
 import './App.css';
-import Login from './page/login';
+
+import React, { Suspense } from 'react';
+import Router from './services/Router';
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <Suspense fallback={<h1>Carregando</h1>}>
+        <Router />
+    </Suspense>
   );
 }
 
