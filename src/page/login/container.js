@@ -10,7 +10,7 @@ const useContainer = () => {
             const body = qs.stringify({
                 grant_type: 'password',
                 username: props.login,
-                senha: props.senha,
+                password: props.senha,
             });
 
             post("oauth/token", body).then(response => {
