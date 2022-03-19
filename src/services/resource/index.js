@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const URL = "http://localhost:8080";
 
+// const token = JSON.parse(localStorage.getItem('token'));
+
 export const post = (resource, body) => {
 
     let request = 'post';
@@ -16,4 +18,19 @@ export const post = (resource, body) => {
     }
     
     return axios[request](url, body, config);
+};
+
+export const get = (resource,token) => {
+
+    let request = 'get';
+    let url = `${URL}/${resource}`;  
+
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}` 
+        }
+    }
+    
+    return axios[request](url, config);
 };

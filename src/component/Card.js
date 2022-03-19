@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 
 const card = (prop) => {
     return(
-    <Card style={{ width: '18rem' }} className={prop.className}>
+    <Card className={prop.className}>
         <Card.Body>
             <Card.Title>{prop.title}</Card.Title>
             <Card.Text>

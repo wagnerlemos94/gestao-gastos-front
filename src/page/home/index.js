@@ -1,26 +1,28 @@
 import React from "react";
 import Card from "../../component/Card";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import DataTable from "../../component/DataTable";
 
-// import useContainer from "./container";
+import useContainer from "./container";
 
 
 
 const Home = () => {
-    // const {
-    //     functions
-    // } = useContainer();
+    const {
+        coluns,
+        rows
+    } = useContainer();
+
+    const datatable = {
+        columns: coluns,
+        rows: rows
+        ,
+      };
 
     
     return(
         <Container className="mt-5">
-            <Row className="justify-content-md-center">
-                <Col md="auto" className="mt-5">
-                    <Card title={"Bem - Vindo"} button="Logar" className="bg-secondary mt-5">
-                        Home  
-                    </Card>
-                </Col>
-            </Row>    
+            <DataTable datatable={datatable} />
     </Container>
     );
 }

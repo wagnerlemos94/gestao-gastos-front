@@ -20,7 +20,7 @@ const Login = () => {
         <Container className="mt-5">
             <Row className="justify-content-md-center">
                 <Col md="auto" className="mt-5">
-                    <Card title={"Bem - Vindo"} button="Logar" className="bg-secondary mt-5">
+                    <Card title={"Bem - Vindo"} button="Logar" className="bg-info mt-5">
                         <Form className="mt-4">
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Login</Form.Label>

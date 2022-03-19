@@ -42,7 +42,7 @@ const Router = () => {
         <BrowserRouter>
             <Switch>
                 <PublicRoute exact path="/" component={() => <Login />} />
-                <PrivateRoute exact path="/principal" component={() => <Home />} />  
+                <PublicRoute exact path="/principal" component={() => <Home />} />  
             </Switch>
         </BrowserRouter>
     );
