@@ -6,6 +6,7 @@ import StoreContext from '../store/Context'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Login from '../../page/login';
 import Home from '../../page/home';
+import Formulario from '../../page/home/formulario';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
@@ -43,6 +44,7 @@ const Router = () => {
             <Switch>
                 <PublicRoute exact path="/" component={() => <Login />} />
                 <PublicRoute exact path="/principal" component={() => <Home />} />  
+                <PublicRoute exact path="/lancamentos/formulario" component={() => <Formulario />} />  
             </Switch>
         </BrowserRouter>
     );

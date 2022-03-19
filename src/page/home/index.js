@@ -22,6 +22,10 @@ const Home = () => {
     
     return(
         <Container className="mt-5">
+            <h1 className="text-center">lançamentos</h1>
+            <div className="text-right">
+                <a href="lancamentos/formulario" className="btn btn-sm btn-primary">Cadastro</a>
+            </div>
             <DataTable datatable={datatable} />
     </Container>
     );

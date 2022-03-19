@@ -1,17 +1,17 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card as CardBoot } from "react-bootstrap";
 
-const card = (prop) => {
+const Card = (prop) => {
     return(
-    <Card className={prop.className}>
-        <Card.Body>
-            <Card.Title>{prop.title}</Card.Title>
-            <Card.Text>
+    <CardBoot className={prop.className}>
+        <CardBoot.Body>
+            <CardBoot.Title>{prop.title}</CardBoot.Title>
+            <CardBoot.Text>
                 {prop.children}
-            </Card.Text>
-        </Card.Body>
-    </Card>
+            </CardBoot.Text>
+        </CardBoot.Body>
+    </CardBoot>
     );
 }
 
-export default card;
+export default Card;

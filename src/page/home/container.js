@@ -42,7 +42,7 @@ const useContainer = () => {
         }
       ]
     useEffect(() => {
-        get('lancamentos',"d7d4a54c-543c-4ba4-89d3-03b88d5ad865").then(response => {
+        get('lancamentos',"04dfe349-fca0-4400-844b-cf51908cbc2f").then(response => {
             const lancamentos = response.data;
             setJourney(lancamentos);
             console.log(lancamentos);
@@ -52,7 +52,7 @@ const useContainer = () => {
             console.log(erro);
         });
         
-    });
+    },[journey]);
 
 
     return{
