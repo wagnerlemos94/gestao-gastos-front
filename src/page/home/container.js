@@ -42,17 +42,16 @@ const useContainer = () => {
         }
       ]
     useEffect(() => {
-        get('lancamentos',"04dfe349-fca0-4400-844b-cf51908cbc2f").then(response => {
+        get('lancamentos').then(response => {
             const lancamentos = response.data;
             setJourney(lancamentos);
-            console.log(lancamentos);
 
         }).catch(erro => {
             alert("Deu Ruim");
             console.log(erro);
         });
         
-    },[journey]);
+    });
 
 
     return{

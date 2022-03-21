@@ -4,6 +4,7 @@ import axios from 'axios';
 const URL = "http://localhost:8080";
 
 // const token = JSON.parse(localStorage.getItem('token'));
+const token = localStorage.getItem('token');
 
 export const post = (resource, body) => {
 
@@ -20,7 +21,7 @@ export const post = (resource, body) => {
     return axios[request](url, body, config);
 };
 
-export const get = (resource,token) => {
+export const get = (resource) => {
 
     let request = 'get';
     let url = `${URL}/${resource}`;  

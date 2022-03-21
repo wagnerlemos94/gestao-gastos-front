@@ -25,6 +25,7 @@ const useContainer = () => {
             const data = response.data;
             console.log(data.access_token);
             localStorage.setItem('username', props.login);
+            localStorage.setItem('token', data.access_token);
             setToken(data.access_token);
             history.push('/principal');
 
