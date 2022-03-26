@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { get } from "../../../services/resource/index";
 
 const useContainer = () =>{
@@ -65,10 +65,11 @@ const useContainer = () =>{
         }
     ]
 
-    const salvar = (props) => {
-        // console.log(props)
-        alert("teste");
+    const salvar = (form) => {
+        // e.preventDefault();
+        console.log(form);
     }
+
     
     useEffect(()=> {
         get("categorias").then(response => {
