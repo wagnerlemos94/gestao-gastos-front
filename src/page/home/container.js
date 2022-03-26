@@ -3,7 +3,7 @@ import { get } from "../../services/resource/index";
 
 const useContainer = () => {
 
-    const [journey, setJourney] = useState(null);
+    const [lancamento, setLancamento] = useState(null);
 
     const coluns = [
         {
@@ -43,20 +43,19 @@ const useContainer = () => {
       ]
     useEffect(() => {
         get('lancamentos').then(response => {
-            const lancamentos = response.data;
-            setJourney(lancamentos);
-
+            
+            setLancamento(response.data);
         }).catch(erro => {
             alert("Deu Ruim");
             console.log(erro);
         });
         
-    });
+    },[]);
 
 
     return{
         coluns:coluns,
-        rows:journey
+        rows:lancamento
     }
 }
 

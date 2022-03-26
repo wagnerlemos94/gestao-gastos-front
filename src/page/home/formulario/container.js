@@ -3,7 +3,7 @@ import { get } from "../../../services/resource/index";
 
 const useContainer = () =>{
 
-    const [journey, setJourney] = useState(null);
+    const [categorias, setcategoria] = useState(null);
     const mes = [
         {
             id:1,
@@ -73,15 +73,14 @@ const useContainer = () =>{
     
     useEffect(()=> {
         get("categorias").then(response => {
-            const categoria = response.data;
-            setJourney(categoria);
+            setcategoria(response.data);
         }).catch(erro => {
             console.log(erro)
         })
-    });
+    },[]);
 
     return{
-        categoria:journey,
+        categoria:categorias,
         mes:mes,
         tipo:tipo,
         functions:{
