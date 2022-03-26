@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
-import { get } from "../../../services/resource/index";
+import { lancamento, get } from "../../../services/resource/index";
+
+import { useHistory } from 'react-router-dom';
 
 const useContainer = () =>{
 
@@ -65,9 +67,25 @@ const useContainer = () =>{
         }
     ]
 
+    const history = useHistory();
+
     const salvar = (form) => {
         // e.preventDefault();
-        console.log(form);
+        const body = {
+            descricao:form.descricao,
+            tipo:form.tipo,
+            valor:form.valor,
+            mes:form.mes,
+            categoria:{id:form.categoria},
+            usuario:{id:1},
+        }
+
+        lancamento("lancamentos", body).then(response => {
+            console.log(response.data);
+            history.push('/principal');
+        }).cacth(erro => {
+            console.log(erro);
+        });
     }
 
     

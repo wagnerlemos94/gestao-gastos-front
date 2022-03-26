@@ -37,6 +37,22 @@ export const categoria = (resource, body) => {
     return axios[request](url, body, config);
 };
 
+export const lancamento = (resource, body) => {
+
+    let request = 'post';
+    let url = `${URL}/${resource}`;  
+
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}` 
+        }
+    }
+    
+    
+    return axios[request](url, body, config);
+};
+
 export const get = (resource) => {
 
     let request = 'get';

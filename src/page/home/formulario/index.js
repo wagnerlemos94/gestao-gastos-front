@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import { propTypes } from "react-bootstrap/esm/Image";
 import Card from "../../../component/Card";
 import Select from '../../../component/Select';
 import useContainer from "./container";
@@ -12,7 +13,8 @@ const Formulario = () => {
         descricao:undefined,
         tipo:undefined,
         categoria:undefined,
-        valor:undefined
+        valor:undefined,
+        mes:undefined
     }
 
     return(
@@ -29,19 +31,19 @@ const Formulario = () => {
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Categoria</span>
-                                <Select name="categoria" onChange={e => form.categoria = e.target.value} array={categoria}></Select>
+                                <Select name="categoria" onChange={form} array={categoria}></Select>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Mês</span>
-                                <Select name="mes" onChange={e => form.mes = e.target.value} array={mes}></Select>
+                                <Select name="mes" onChange={form} array={mes}></Select>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Tipo</span>
-                                <Select name="tipo" onChange={e => form.tipo = e.target.value} array={tipo}></Select>
+                                <Select name="tipo" onChange={form} array={tipo}></Select>
                             </div>
                         </Col>
                         <Col className="col-6">
