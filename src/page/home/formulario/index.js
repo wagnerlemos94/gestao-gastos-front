@@ -6,7 +6,7 @@ import useContainer from "./container";
 
 const Formulario = () => {
 
-    const { categoria, mes, tipo, functions } = useContainer();
+    const { categoria, meses, tipo, functions } = useContainer();
 
     const form = {
         descricao:undefined,
@@ -37,7 +37,7 @@ const Formulario = () => {
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Mês</span>
-                                <Select name="mes" onChange={form} array={mes} required="true"></Select>
+                                <Select name="mes" onChange={form} array={meses} required="true"></Select>
                             </div>
                         </Col>
                         <Col className="col-6">

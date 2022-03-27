@@ -41,9 +41,9 @@ const useContainer = () => {
           width: 200,
         }
       ]
+      
     useEffect(() => {
-        get('lancamentos').then(response => {
-            
+        get('lancamentos').then(response => {            
             setLancamento(response.data);
         }).catch(erro => {
             alert("Deu Ruim");

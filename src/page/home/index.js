@@ -4,6 +4,7 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import DataTable from "../../component/DataTable";
 
 import useContainer from "./container";
+import NavB from "./navBar";
 
 
 
@@ -21,12 +22,15 @@ const Home = () => {
 
     
     return(
-        <Container className="mt-5">
+        <Container className="mt-2">
             <h1 className="text-center">lançamentos</h1>
             <div className="text-right">
                 <a href="lancamentos/formulario" className="btn btn-sm btn-primary">Cadastro</a>
             </div>
+
+            <NavB>
             <DataTable datatable={datatable} />
+            </NavB>
     </Container>
     );
 }

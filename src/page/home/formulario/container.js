@@ -1,61 +1,14 @@
 import React, {useState, useEffect} from "react";
 import { lancamento, get } from "../../../services/resource/index";
+import listMeses from '../../../services/utils/listMeses';
 
 import { useHistory } from 'react-router-dom';
 
 const useContainer = () =>{
 
     const [categorias, setcategoria] = useState(null);
-    const mes = [
-        {
-            id:1,
-            nome:"Janeiro"
-        },
-        {
-            id:2,
-            nome:"Fevereiro"
-        },
-        {
-            id:3,
-            nome:"Março"
-        },
-        {
-            id:4,
-            nome:"Abril"
-        },
-        {
-            id:5,
-            nome:"Maio"
-        },
-        {
-            id:6,
-            nome:"Junho"
-        },
-        {
-            id:7,
-            nome:"Julho"
-        },
-        {
-            id:8,
-            nome:"Agosto"
-        },
-        {
-            id:9,
-            nome:"Setembro"
-        },
-        {
-            id:10,
-            nome:"Outubro"
-        },
-        {
-            id:11,
-            nome:"Novembro"
-        },
-        {
-            id:12,
-            nome:"Dezembro"
-        }
-    ];
+    const {meses} = listMeses();
+    
     const tipo = [
         {
             id:1,
@@ -99,7 +52,7 @@ const useContainer = () =>{
 
     return{
         categoria:categorias,
-        mes:mes,
+        meses,
         tipo:tipo,
         functions:{
             salvar
