@@ -59,10 +59,10 @@ const useContainer = () =>{
     const tipo = [
         {
             id:1,
-            nome:"Lançamento"
+            nome:"Receita"
         },
         {
-            id:1,
+            id:2,
             nome:"Despesa"
         }
     ]

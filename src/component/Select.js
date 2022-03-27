@@ -22,10 +22,14 @@ const Select = (props) => {
             </Form.Select>
         
         :
-        <Form.Select onChange={e => selected(e.target.value)}>
+        <Form.Select onChange={e => selected(e.target.value)} required={props.required}>
+            <option disabled selected>Selecione...</option>
                 {
                     props.array.map((value, index) => {
-                        return <option name={props.name} value={value.id}>{value.nome}</option>
+                        return <>
+                        <option name={props.name} value={value.id}>{value.nome}</option>
+                        </>
+                        
                     })
                 }
         </Form.Select>

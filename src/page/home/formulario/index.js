@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
 import Card from "../../../component/Card";
 import Select from '../../../component/Select';
 import useContainer from "./container";
@@ -25,31 +24,33 @@ const Formulario = () => {
                         <Col className="col-12">
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Descrição</span>
-                                <input type="text" onChange={e => form.descricao = e.target.value} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="text" onChange={e => form.descricao = e.target.value} 
+                                className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Categoria</span>
-                                <Select name="categoria" onChange={form} array={categoria}></Select>
+                                <Select name="categoria" onChange={form} array={categoria} required="true"></Select>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Mês</span>
-                                <Select name="mes" onChange={form} array={mes}></Select>
+                                <Select name="mes" onChange={form} array={mes} required="true"></Select>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Tipo</span>
-                                <Select name="tipo" onChange={form} array={tipo}></Select>
+                                <Select name="tipo" onChange={form} array={tipo} required="true"></Select>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Valor</span>
-                                <input type="text" onChange={e => form.valor = e.target.value} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="text" onChange={e => form.valor = e.target.value} 
+                                className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                             <p>{form.descricao}</p>
                         </Col>

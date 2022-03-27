@@ -13,7 +13,8 @@ import Navbar from '../../component/NavBar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
-    const { token } = useContext(StoreContext);
+    // const { token } = useContext(StoreContext);
+    const token = localStorage.getItem("token");
 
     return (    
         <Navbar>
@@ -50,9 +51,9 @@ const Router = () => {
             <BrowserRouter>
                 <Switch>
                     <PublicRoute exact path="/" component={() => <Login />} />
-                    <PublicRoute exact path="/principal" component={() => <Home />} />  
-                    <PublicRoute exact path="/lancamentos/formulario" component={() => <Lancamento />} />  
-                    <PublicRoute exact path="/categoria/formulario" component={() => <Categoria />} />  
+                    <PrivateRoute exact path="/principal" component={() => <Home />} />  
+                    <PrivateRoute exact path="/lancamentos/formulario" component={() => <Lancamento />} />  
+                    <PrivateRoute exact path="/categoria/formulario" component={() => <Categoria />} />  
                 </Switch>
             </BrowserRouter>
     );
