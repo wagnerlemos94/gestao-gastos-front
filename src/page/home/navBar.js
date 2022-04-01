@@ -1,24 +1,19 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import listMeses from '../../services/utils/listMeses';
-import { get } from "../../services/resource/index";
-import {useState, useEffect} from "react";
 
-import useContainer from "./container";
+import { useHistory } from 'react-router-dom';
 
 const NavB = (props) =>{
+
     const {meses} = listMeses();
-    const [lancamento, setLancamento] = useState(null);
+    const history = useHistory();
 
     const mes = (mesId) => {
-        get('lancamentos?mes='+mesId).then(response => {            
-            setLancamento(response.data);
-        }).catch(erro => {
-            alert("Deu Ruim");
-            console.log(erro);
-        });
-        
-        // useEffect(() => {
-        // },[]);
+        history.push({
+            search:`?mes=${mesId}`
+        })
+        window.location.reload();
+
     }
 
     return(

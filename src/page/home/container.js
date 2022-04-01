@@ -1,9 +1,13 @@
 import {useState, useEffect} from "react";
 import { get } from "../../services/resource/index";
 
+import { useHistory } from 'react-router-dom';
+
 const useContainer = () => {
 
+    const history = useHistory();
     const [lancamento, setLancamento] = useState(null);
+    const [ urlParameters, setUrlParameters ] = useState(history.location.search)
 
     const coluns = [
         {
@@ -43,19 +47,22 @@ const useContainer = () => {
       ]
       
     useEffect(() => {
-        get('lancamentos').then(response => {            
-            setLancamento(response.data);
+        get(`lancamentos${urlParameters}`).then(response => {    
+          setLancamento(response.data);
         }).catch(erro => {
             alert("Deu Ruim");
             console.log(erro);
         });
         
-    },[]);
+    },[urlParameters]);
 
 
     return{
         coluns:coluns,
-        rows:lancamento
+        rows:lancamento,
+        functions:{
+          setUrlParameters
+        }
     }
 }
 
