@@ -1,9 +1,12 @@
 import {useState, useEffect} from "react";
 import { get } from "../../services/resource/index";
+import lancamentoResource from "../../services/resource/lancamentoResource";
 
 import { useHistory } from 'react-router-dom';
 
 const useContainer = () => {
+  
+    const service = new lancamentoResource();
 
     const history = useHistory();
     const [lancamento, setLancamento] = useState(null);
@@ -47,11 +50,15 @@ const useContainer = () => {
       ]
       
     useEffect(() => {
-        get(`lancamentos${urlParameters}`).then(response => {    
+      service.listar(urlParameters).then(response => {
           setLancamento(response.data);
         }).catch(erro => {
-            alert("Deu Ruim");
-            console.log(erro);
+          console.log(erro.response)
+            // if(erro.response.data.error === "invalid_token"){
+            //   alert(erro.response.data.error )
+            //   localStorage.removeItem("token");
+            //   history.push('/');
+            // }
         });
         
     },[urlParameters]);
