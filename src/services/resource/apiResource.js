@@ -43,7 +43,7 @@ class ApiResource{
         return axios["get"](requestUrl, config);
     }
 
-    login(body){
+    logar(body){
 
         const configLogin = {
             headers: {
@@ -51,7 +51,7 @@ class ApiResource{
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }
-        const requestUrl = "oauth/token";
+        const requestUrl = `${baseURL}/oauth/token`;
         return axios["post"](requestUrl, body, configLogin);
     }
 }

@@ -6,7 +6,7 @@ class UsuarioResource extends ApiResource{
     }
 
     login(body){
-        return this.login(body);
+        return this.logar(body);
     }
 }
 

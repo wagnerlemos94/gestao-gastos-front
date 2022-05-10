@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 const useContainer = () => {
 
-    const service = UsuarioResource();
+    const service = new UsuarioResource();
 
     const history = useHistory();
     const { setToken, setMessage } = useContext(StoreContext);
