@@ -8,9 +8,9 @@ const NavB = (props) =>{
     const {meses} = listMeses();
     const history = useHistory();
 
-    const mes = (mesId) => {
+    const mes = (mes) => {
         history.push({
-            search:`?mes=${mesId}`
+            search:`?mes=${mes.id}`
         })
         window.location.reload();
 
@@ -24,7 +24,7 @@ const NavB = (props) =>{
                         <Nav className="me-auto">
                             {
                                 meses.map((value,index) => {
-                                    return <Nav.Link className='ml-3' onClick={() => mes(value.id)}>{value.nome}</Nav.Link>
+                                    return <Nav.Link className='ml-3' onClick={() => mes(value)}>{value.nome}</Nav.Link>
                                 })
                             }
                     </Nav>                

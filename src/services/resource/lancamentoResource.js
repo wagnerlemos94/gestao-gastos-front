@@ -6,7 +6,11 @@ class LancamentoResource extends ApiResource{
     }
 
     listar(urlParam){
-        return this.get(`${urlParam}`);
+        return this.get("",`${urlParam}`);
+    }
+
+    listarValores(urlParam){
+        return this.get('/valores',`${urlParam}`);
     }
 }
 

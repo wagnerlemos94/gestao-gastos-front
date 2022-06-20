@@ -44,9 +44,11 @@ const useContainer = () =>{
     
     useEffect(()=> {
         get("categorias").then(response => {
+            console.log("response.data")
+            console.log(response.data)
             setcategoria(response.data);
         }).catch(erro => {
-            console.log(erro)
+            console.log(erro.response)
         })
     },[]);
 
