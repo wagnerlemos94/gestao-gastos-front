@@ -1,21 +1,21 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
+import Deslogar from '../services/utils/deslogar';
 
-const deslogar = () => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('token');
-}
 
 const NavbarProp = (props) => {
+
+    const deslogar = Deslogar();
+    
     return(
         <>
             <Navbar bg="primary" variant="dark">
                 <Container>
                     <Navbar.Brand href="">Navbar</Navbar.Brand>
                         <Nav className="me-auto">
-                        <Nav.Link href="/lancamentos/formulario">Lançamento</Nav.Link>
+                        <Nav.Link href="/lancamentos">Lançamento</Nav.Link>
                         <Nav.Link href="/categoria/formulario">Categoria</Nav.Link>
                     </Nav>
-                    <Nav.Link className="text-light" href="/"  onClick={e => deslogar()}>Sair</Nav.Link>
+                    <Nav.Link className="text-light" onClick={e => deslogar.index()}>Sair</Nav.Link>
                 </Container>
             </Navbar>
             {props.children}

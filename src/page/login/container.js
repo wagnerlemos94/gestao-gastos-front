@@ -1,8 +1,5 @@
 
 import qs from 'qs';
-
-import { useState, useContext } from 'react';
-
 import UsuarioResource from '../../services/resource/UsuarioResource';
 import { useHistory } from 'react-router-dom';
 
@@ -24,7 +21,7 @@ const useContainer = () => {
             console.log(data.access_token);
             localStorage.setItem('username', form.login);
             localStorage.setItem('token', data.access_token);
-            history.push('/principal');
+            history.push('/lancamentos');
 
         }).catch(erro => {
             console.log(erro.response);

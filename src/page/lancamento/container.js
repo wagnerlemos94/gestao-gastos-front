@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import lancamentoResource from "../../services/resource/lancamentoResource";
 import listMeses from '../../services/utils/listMeses';
+import { MDBIcon } from "mdbreact";
 
 import { useHistory } from 'react-router-dom';
 
@@ -60,7 +61,7 @@ const useContainer = () => {
         },
         {
           label: 'Ações',
-          field: 'buttom',
+          field: 'acoes',
           width: 200,
         }
       ]
@@ -70,10 +71,29 @@ const useContainer = () => {
         setUrlParameters(`?mes=${valorMes}`);
         getMesId(valorMes);
       }
+
+      const editar = (lancamento) => {
+        lancamento.acoes = null
+        console.log(lancamento)
+        history.push("/lancamentos/formulario",lancamento)
+      }
       
       useEffect(() => {
+        const obj = {
+          teste:'teste',
+          outro:"outro"
+        }
         service.listar(urlParameters).then(response => {
-          setLancamento(response.data);
+          const lancamentos = response.data;
+          Object.values(lancamentos).map( lancamento => {
+            if(lancamento.tipo != "SALDO"){
+              lancamento.acoes =               
+              <a id={lancamento.id} onClick={e => editar(lancamento)}>
+                                    <MDBIcon far icon="edit" id={lancamento.id} />
+                                  </a>
+            }
+          });
+          setLancamento(lancamentos);
           getMesId(urlParameters);
         }).catch(erro => {
           console.log(erro.response);

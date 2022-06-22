@@ -7,7 +7,7 @@ import NavB from "./navBar";
 
 
 
-const Home = () => {
+const Lancamento = () => {
     const {
         mesSelecionado,
         valores,
@@ -45,4 +45,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Lancamento;

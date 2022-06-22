@@ -17,23 +17,25 @@ class ApiResource {
     }    
     
 
-    post(url, objeto){
-        const requestUrl = `${this.apiurl}${url}`
-        return axios["post"](requestUrl, this.config);
+    post(resource, body){
+        console.log(body)
+        const requestUrl = `${baseURL}${this.apiurl}${resource}`
+        return axios["post"](requestUrl, body, this.config);
     }
     
-    put(url, objeto){
-        const requestUrl = `${this.apiurl}${url}`
-        return axios["put"](requestUrl, this.config);
+    put(resource, body){
+        const requestUrl = `${baseURL}${this.apiurl}${resource}`
+        console.log(body)
+        return axios["put"](requestUrl, body, this.config);
     }
     
-    delete(url){
-        const requestUrl = `${this.apiurl}${url}`
+    delete(resource){
+        const requestUrl = `${baseURL}${this.apiurl}${resource}`
         return axios["delete"](requestUrl, this.config);
     }
     
-    get(rota,param){
-        const requestUrl = `${baseURL}${this.apiurl}${rota}${param}`;
+    get(resource,param){
+        const requestUrl = `${baseURL}${this.apiurl}${resource}${param}`;
         return axios["get"](requestUrl, this.config);
     }
 

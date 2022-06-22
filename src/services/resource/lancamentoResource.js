@@ -2,7 +2,7 @@ import ApiResource from "./apiResource";
 
 class LancamentoResource extends ApiResource{
     constructor(){
-        super('/lancamentos');
+        super('/lancamentos/');
     }
 
     listar(urlParam){
@@ -10,7 +10,15 @@ class LancamentoResource extends ApiResource{
     }
 
     listarValores(urlParam){
-        return this.get('/valores',`${urlParam}`);
+        return this.get('valores',`${urlParam}`);
+    }
+
+    salvar(body){
+        return this.post('',body);
+    }
+
+    atualizar(id,body){
+        return this.put(id,body);
     }
 }
 
