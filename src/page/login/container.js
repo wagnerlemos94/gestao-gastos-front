@@ -18,7 +18,6 @@ const useContainer = () => {
 
         service.login(body).then(response => {
             const data = response.data;
-            console.log(data.access_token);
             localStorage.setItem('username', form.login);
             localStorage.setItem('token', data.access_token);
             history.push('/lancamentos');

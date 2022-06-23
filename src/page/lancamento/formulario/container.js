@@ -3,6 +3,7 @@ import { lancamento, get } from "../../../services/resource/index";
 import listMeses from '../../../services/utils/listMeses';
 import LancamentoResource from "../../../services/resource/lancamentoResource";
 
+import { success, error}  from  "../../../component/Toast";
 import { useHistory } from 'react-router-dom';
 
 const useContainer = () =>{
@@ -44,7 +45,7 @@ const useContainer = () =>{
             tipo:form.tipo,
             valor:form.valor,
             mes:form.mes,
-            categoria:{id:form.categoria},
+            categoria:form.categoria,
             usuario:{id:1},
         }
 
@@ -53,14 +54,22 @@ const useContainer = () =>{
             body.id = id
             service.atualizar(id, body).then( response => {
                 history.push('/lancamentos');
-            }).catch( error => {
-                console.log(error.response);
+                success("Registro Editado com sucesso!");
+            }).catch( responseErro => {
+                const erros =  responseErro.response.data.errors;
+                Object.values(erros).map(erro => {
+                    error("Algo deu Errado! " + erro.defaultMessage);
+                });
             });
         }else{
             service.salvar(body).then( response => {
+                success("Registro Cadastrado com sucesso!");
                 history.push('/lancamentos');
-            }).catch( error => {
-                console.log(error.response);
+            }).catch( responseErro => {
+                const erros =  responseErro.response.data.errors;
+                Object.values(erros).map(erro => {
+                    error("Algo deu Errado! " + erro.defaultMessage);
+                });
             });
         }
     }

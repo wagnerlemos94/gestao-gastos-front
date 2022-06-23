@@ -18,13 +18,13 @@ const NavB = (props) =>{
 
     return(
         <>
-            <Navbar bg="primary" variant="dark" className='mb-2'>
+            <Navbar bg="light"  className='mb-2 p-1' expand="sm" >
                 <Container>
                     <Navbar.Brand href=""></Navbar.Brand>
                         <Nav className="me-auto">
                             {
                                 meses.map((value,index) => {
-                                    return <Nav.Link className='ml-3' onClick={() => mes(value)}>{value.nome}</Nav.Link>
+                                    return <Nav.Link className='ml-3 text-primary' onClick={() => mes(value)}>{value.nome}</Nav.Link>
                                 })
                             }
                     </Nav>                

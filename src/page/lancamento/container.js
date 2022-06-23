@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import lancamentoResource from "../../services/resource/lancamentoResource";
 import listMeses from '../../services/utils/listMeses';
 import { MDBIcon } from "mdbreact";
+import Swal from 'sweetalert2'
 
 import { useHistory } from 'react-router-dom';
 
@@ -77,20 +78,46 @@ const useContainer = () => {
         console.log(lancamento)
         history.push("/lancamentos/formulario",lancamento)
       }
+
+      const deletar = (id) => {
+        Swal.fire({
+          title: 'Deseja deletar esse registro!',
+          text: 'Click em continuar ou Cancelar',
+          icon: 'question',
+          showDenyButton: true,
+          confirmButtonText: 'Continuar',
+          denyButtonText: `Cancelar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            service.delete(id).then(response => {
+              Swal.fire('Registro Deletado com sucesso!', '', 'success')
+              setLancamento();
+            }).catch( erro => {
+              Swal.fire('Algo deu errado', '', 'info')
+            });
+          }
+        });
+        return false;
+      
+      }
       
       useEffect(() => {
-        const obj = {
-          teste:'teste',
-          outro:"outro"
-        }
+
         service.listar(urlParameters).then(response => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
+            console.log(lancamento);
             if(lancamento.tipo != "SALDO"){
-              lancamento.acoes =               
-              <a id={lancamento.id} onClick={e => editar(lancamento)}>
-                                    <MDBIcon far icon="edit" id={lancamento.id} />
-                                  </a>
+              lancamento.acoes =   
+              <>
+              <a className="mr-2" id={lancamento.id}
+               onClick={e => editar(lancamento)}>
+                <MDBIcon far icon="edit" id={lancamento.id} />
+              </a>
+              <a className="ml-2" id={lancamento.id} onClick={e => deletar(lancamento.id)}>
+                <MDBIcon far icon="trash-alt" id={lancamento.id} />
+              </a>
+              </>            
             }
           });
           setLancamento(lancamentos);
