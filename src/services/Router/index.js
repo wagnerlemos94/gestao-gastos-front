@@ -7,7 +7,8 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Login from '../../page/login';
 import Lancamento from '../../page/lancamento';
 import LancamentoFormulario from '../../page/lancamento/formulario';
-import Categoria from '../../page/categoria/index';
+import CategoriaFormulario from '../../page/categoria/formulario/index';
+import Categoria from '../../page/categoria/index.js';
 
 import Navbar from '../../component/NavBar';
 
@@ -52,7 +53,8 @@ const Router = () => {
                     {/* <PrivateRoute exact path="/principal" component={() => <Home />} />   */}
                     <PrivateRoute exact path="/lancamentos" component={() => <Lancamento />} />  
                     <PrivateRoute exact path="/lancamentos/formulario" component={() => <LancamentoFormulario />} />  
-                    <PrivateRoute exact path="/categoria/formulario" component={() => <Categoria />} />  
+                    <PrivateRoute exact path="/categorias/formulario" component={() => <CategoriaFormulario />} />  
+                    <PrivateRoute exact path="/categorias" component={() => <Categoria />} />  
                 </Switch>
             </BrowserRouter>
     );

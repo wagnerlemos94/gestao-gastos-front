@@ -13,7 +13,7 @@ const NavbarProp = (props) => {
                     <Navbar.Brand href=""></Navbar.Brand>
                         <Nav className="me-auto">
                         <Nav.Link href="/lancamentos">Lançamento</Nav.Link>
-                        <Nav.Link href="/categoria/formulario">Categoria</Nav.Link>
+                        <Nav.Link href="/categorias">Categoria</Nav.Link>
                     </Nav>
                     <Nav.Link className="text-light" onClick={e => deslogar.index()}>Sair</Nav.Link>
                 </Container>

@@ -1,45 +1,28 @@
 import {useState, useEffect} from "react";
 import { lancamento, get } from "../../../services/resource/index";
 import listMeses from '../../../services/utils/listMeses';
-import LancamentoResource from "../../../services/resource/lancamentoResource";
-import CategoriaResource from "../../../services/resource/categoriaResource";
 
 import { success, error}  from  "../../../component/Toast";
 import { useHistory } from 'react-router-dom';
+import CategoriaResource from "../../../services/resource/categoriaResource";
 
 const useContainer = () =>{
 
-    const lancamentoService = new LancamentoResource();
-    const categoriaService = new CategoriaResource();
+    const service = new CategoriaResource();
 
 
-    const [categorias, setcategoria] = useState([]);
+    const [categorias, setcategoria] = useState(null);
     const {meses} = listMeses();
     
     const history = useHistory();
 
     
     const inicialState  = {
-        descricao:undefined,
-        tipo:undefined,
-        categoria:undefined,
-        valor:undefined,
-        mes:undefined
+        nome:undefined
     }
     
     const [value, setValue] = useState(inicialState); 
     const [titulo, setTitulo] = useState(null); 
-    
-    const tipo = [
-        {
-            id:1,
-            nome:"Receita"
-        },
-        {
-            id:2,
-            nome:"Despesa"
-        }
-    ]
 
     const validarFormulario = (form) => {
 
@@ -60,17 +43,13 @@ const useContainer = () =>{
     const salvar = (form) => {
         if(validarFormulario(form)){
             let body = {
-                descricao:form.descricao,
-                tipo:form.tipo,
-                valor:form.valor,
-                mes:form.mes,
-                categoria:form.categoria
+                nome:form.nome
             }        
         
             if(history.location.state){
                 const id = history.location.state.id;
                 body.id = id
-                lancamentoService.atualizar(id, body).then( response => {
+                service.atualizar(id, body).then( response => {
                     history.push('/lancamentos');
                     success("Registro Editado com sucesso!");
                 }).catch( responseErro => {
@@ -82,7 +61,7 @@ const useContainer = () =>{
                     }
                 });
             }else{
-                lancamentoService.salvar(body).then( response => {
+                service.salvar(body).then( response => {
                     success("Registro Cadastrado com sucesso!");
                     history.push('/lancamentos');
                 }).catch( responseErro => {
@@ -103,18 +82,16 @@ const useContainer = () =>{
         }else{
             setTitulo("Novo cadastro");
         }
-        categoriaService.listar().then(response => {
+        get("categorias").then(response => {
             setcategoria(response.data);
-        }).catch(responseErro => {
-            console.log(responseErro.response);
+        }).catch(erro => {
+            console.log(erro.response)
         })
     },[]);
 
     return{
         titulo:titulo,
-        categorias:categorias,
-        meses,
-        tipo:tipo,
+        categoria:categorias,
         form:value,
         functions:{
             salvar,

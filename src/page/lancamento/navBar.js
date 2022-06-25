@@ -24,7 +24,7 @@ const NavB = (props) =>{
                         <Nav className="me-auto">
                             {
                                 meses.map((value,index) => {
-                                    return <Nav.Link className='ml-3 text-primary' onClick={() => mes(value)}>{value.nome}</Nav.Link>
+                                    return <Nav.Link key={value.id} className='ml-3 text-primary' onClick={() => mes(value)}>{value.nome}</Nav.Link>
                                 })
                             }
                     </Nav>                

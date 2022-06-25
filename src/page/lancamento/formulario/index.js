@@ -6,7 +6,7 @@ import useContainer from "./container";
 
 const Formulario = () => {
 
-    const { categoria, meses, tipo, functions, form, titulo} = useContainer();
+    const { categorias, meses, tipo, functions, form, titulo} = useContainer();
 
     return(
         <Container className="mt-5">
@@ -23,7 +23,7 @@ const Formulario = () => {
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Categoria</span>
-                                <Select name="categoria" onChange={e => functions.setValue(prevState => {return { ...prevState, categoria: e.target.value }})} array={categoria} selected={form.categoria ? form.categoria.toUpperCase() : form.categoria} required="true"></Select>
+                                <Select name="categoria" onChange={e => functions.setValue(prevState => {return { ...prevState, categoria: e.target.value }})} array={categorias} selected={form.categoria ? form.categoria.toUpperCase() : form.categoria} required="true"></Select>
                             </div>
                         </Col>
                         <Col className="col-6">

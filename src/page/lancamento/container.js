@@ -75,7 +75,6 @@ const useContainer = () => {
 
       const editar = (lancamento) => {
         lancamento.acoes = null
-        console.log(lancamento)
         history.push("/lancamentos/formulario",lancamento)
       }
 
@@ -91,7 +90,7 @@ const useContainer = () => {
           if (result.isConfirmed) {
             service.delete(id).then(response => {
               Swal.fire('Registro Deletado com sucesso!', '', 'success')
-              setLancamento();
+              listarLancamentos();
             }).catch( erro => {
               Swal.fire('Algo deu errado', '', 'info')
             });
@@ -100,13 +99,11 @@ const useContainer = () => {
         return false;
       
       }
-      
-      useEffect(() => {
 
+      const listarLancamentos = () => {
         service.listar(urlParameters).then(response => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
-            console.log(lancamento);
             if(lancamento.tipo != "SALDO"){
               lancamento.acoes =   
               <>
@@ -131,7 +128,10 @@ const useContainer = () => {
         }).catch(erro => {
           console.log(erro.response);
         });
-        
+      }
+      
+      useEffect(() => {
+        listarLancamentos();
     },[urlParameters]);
 
 
@@ -139,7 +139,7 @@ const useContainer = () => {
         mesSelecionado:mesSelecionado,
         valores:valores,
         coluns:coluns,
-        rows:lancamento,
+        rows:lancamento ? lancamento : [],
         functions:{
           setUrlParameters          
         }

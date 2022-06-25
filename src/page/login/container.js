@@ -3,6 +3,8 @@ import qs from 'qs';
 import UsuarioResource from '../../services/resource/UsuarioResource';
 import { useHistory } from 'react-router-dom';
 
+import { error } from '../../component/Toast';
+
 const useContainer = () => {
 
     const service = new UsuarioResource();
@@ -21,10 +23,8 @@ const useContainer = () => {
             localStorage.setItem('username', form.login);
             localStorage.setItem('token', data.access_token);
             history.push('/lancamentos');
-
         }).catch(erro => {
-            console.log(erro.response);
-            alert("Usuario ou senha invalido");
+            error("Usuario ou senha inválido");
         });
     }
 
