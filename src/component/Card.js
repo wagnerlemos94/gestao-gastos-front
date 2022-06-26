@@ -5,7 +5,7 @@ const Card = (prop) => {
     return(
     <CardBoot className={prop.className}>
         <CardBoot.Body>
-            <CardBoot.Title>{prop.title}</CardBoot.Title>
+            <CardBoot.Title className="ml-5">{prop.title}</CardBoot.Title>
             <CardBoot.Text>
                 {prop.children}
             </CardBoot.Text>

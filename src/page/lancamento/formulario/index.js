@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import InputMask from 'react-input-mask';
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import Card from "../../../component/Card";
 import Select from '../../../component/Select';
@@ -16,7 +17,7 @@ const Formulario = () => {
                         <Col className="col-12">
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Descrição</span>
-                                <input type="text" name="descricao" id="descricao" value={form.descricao} onChange={e => functions.setValue(prevState => {return { ...prevState, descricao: e.target.value }})} 
+                                <InputMask type="text" name="descricao" id="descricao" value={form.descricao} onChange={e => functions.setValue(prevState => {return { ...prevState, descricao: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
@@ -41,7 +42,7 @@ const Formulario = () => {
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Valor</span>
-                                <input type="text" value={form.valor} onChange={e => functions.setValue(prevState => {return { ...prevState, valor: e.target.value }})} 
+                                <InputMask type="number" value={form.valor} onChange={e => functions.setValue(prevState => {return { ...prevState, valor: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
