@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Deslogar from '../utils/deslogar';
 
-const baseURL = 'http://localhost:8080';
+// const baseURL = 'http://localhost:8080';
+const baseURL = 'https://financeiro-gastos-api.herokuapp.com';
 
 
 class ApiResource {
