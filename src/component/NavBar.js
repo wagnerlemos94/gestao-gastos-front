@@ -1,11 +1,8 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import Deslogar from '../services/utils/deslogar';
-
+import {Deslogar} from '../services/utils/util';
 
 const NavbarProp = (props) => {
 
-    const deslogar = Deslogar();
-    
     return(
         <>
             <Navbar bg="primary" variant="dark" expand='sm' >
@@ -15,7 +12,7 @@ const NavbarProp = (props) => {
                         <Nav.Link href="/lancamentos">Lançamento</Nav.Link>
                         <Nav.Link href="/categorias">Categoria</Nav.Link>
                     </Nav>
-                    <Nav.Link className="text-light" onClick={e => deslogar.index()}>Sair</Nav.Link>
+                    <Nav.Link className="text-light" onClick={e => Deslogar()}>Sair</Nav.Link>
                 </Container>
             </Navbar>
             {props.children}

@@ -3,7 +3,7 @@ import lancamentoResource from "../../services/resource/lancamentoResource";
 import listMeses from '../../services/utils/listMeses';
 import { MDBIcon } from "mdbreact";
 import Swal from 'sweetalert2'
-import {formatarMoeda,formatarMoedaDoble} from "../../util/util";
+import {formatarMoeda,formatarMoedaDoble} from "../../services/utils/util";
 
 import { useHistory } from 'react-router-dom';
 
@@ -123,7 +123,6 @@ const useContainer = () => {
           getMesId(urlParameters);
         }).catch(erro => {
           console.log(erro.response);
-          service.expirationToken(erro.response.data.error);
         });
         service.listarValores(urlParameters).then(response => {
           setValores(response.data);
@@ -142,7 +141,7 @@ const useContainer = () => {
         valores:valores,
         datatable:{
           columns: coluns,
-          rows: lancamento
+          rows: lancamento ? lancamento : [],
         },
         functions:{
           formatarMoeda    

@@ -9,7 +9,7 @@ const heroku = () => {
   const service = new LancamentoResource();
   setInterval( function() {
     service.heroku();
-  }, 60000 );
+  }, 30000 );
 }
 
 function App() {
