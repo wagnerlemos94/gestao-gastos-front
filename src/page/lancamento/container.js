@@ -3,6 +3,7 @@ import lancamentoResource from "../../services/resource/lancamentoResource";
 import listMeses from '../../services/utils/listMeses';
 import { MDBIcon } from "mdbreact";
 import Swal from 'sweetalert2'
+import {formatarMoeda,formatarMoedaDoble} from "../../util/util";
 
 import { useHistory } from 'react-router-dom';
 
@@ -104,6 +105,7 @@ const useContainer = () => {
         service.listar(urlParameters).then(response => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
+            lancamento.valor = formatarMoeda(lancamento.valor);
             if(lancamento.tipo != "SALDO"){
               lancamento.acoes =   
               <>
@@ -138,10 +140,12 @@ const useContainer = () => {
     return{
         mesSelecionado:mesSelecionado,
         valores:valores,
-        coluns:coluns,
-        rows:lancamento ? lancamento : [],
+        datatable:{
+          columns: coluns,
+          rows: lancamento
+        },
         functions:{
-          setUrlParameters          
+          formatarMoeda    
         }
     }
 }
