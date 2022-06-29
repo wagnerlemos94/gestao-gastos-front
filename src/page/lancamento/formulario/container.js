@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react";
-import { lancamento, get } from "../../../services/resource/index";
 import listMeses from '../../../services/utils/listMeses';
 import LancamentoResource from "../../../services/resource/lancamentoResource";
 import CategoriaResource from "../../../services/resource/categoriaResource";
+import {formatarMoedaDoble, formatarMoeda} from "../../../util/util";
 
 import { success, error}  from  "../../../component/Toast";
 import { useHistory } from 'react-router-dom';
@@ -46,7 +46,6 @@ const useContainer = () =>{
         let isValidate = true;
 
         Object.keys(form).forEach((chave) => {          
-            console.log(chave + " - " + form[chave]);
             if(chave !== "acoes" && !form[chave]){
                 error(`Campo ${chave} Obrigatório!`);
                 isValidate = false;
@@ -62,11 +61,10 @@ const useContainer = () =>{
             let body = {
                 descricao:form.descricao,
                 tipo:form.tipo,
-                valor:form.valor,
+                valor:formatarMoedaDoble(form.valor),
                 mes:form.mes,
                 categoria:form.categoria
-            }        
-        
+            }      
             if(history.location.state){
                 const id = history.location.state.id;
                 body.id = id
@@ -118,7 +116,8 @@ const useContainer = () =>{
         form:value,
         functions:{
             salvar,
-            setValue
+            setValue,
+            formatarMoedaDoble
         }
     }
 

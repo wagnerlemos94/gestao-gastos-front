@@ -4,10 +4,23 @@ import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import Card from "../../../component/Card";
 import Select from '../../../component/Select';
 import useContainer from "./container";
+import IntlCurrencyInput from "react-intl-currency-input"
 
 const Formulario = () => {
 
     const { categorias, meses, tipo, functions, form, titulo} = useContainer();
+
+    const currencyConfig = {
+        locale: "pt-BR",
+        formats: {
+          number: {
+            BRL: {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            },
+          },
+        },
+      };
 
     return(
         <Container className="mt-5">
@@ -42,7 +55,8 @@ const Formulario = () => {
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Valor</span>
-                                <InputMask type="number" value={form.valor} onChange={e => functions.setValue(prevState => {return { ...prevState, valor: e.target.value }})} 
+                                <IntlCurrencyInput type="text" currency="BRL" config={currencyConfig}
+                                value={form.valor} onChange={e => functions.setValue(prevState => {return { ...prevState, valor:e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
