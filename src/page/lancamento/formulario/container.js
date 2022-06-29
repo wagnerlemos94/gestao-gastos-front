@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import listMeses from '../../../services/utils/listMeses';
 import LancamentoResource from "../../../services/resource/lancamentoResource";
 import CategoriaResource from "../../../services/resource/categoriaResource";
-import {formatarMoedaDoble, formatarMoeda} from "../../../util/util";
+import {formatarMoedaDoble} from "../../../services/utils/util";
 
 import { success, error}  from  "../../../component/Toast";
 import { useHistory } from 'react-router-dom';

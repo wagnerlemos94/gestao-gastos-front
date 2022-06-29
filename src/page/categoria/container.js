@@ -81,7 +81,6 @@ const useContainer = () => {
           setCategoria(categorias);
         }).catch(erro => {
           console.log(erro.response);
-          service.expirationToken(erro.response.data.error);
         });
      
       }

@@ -1,46 +1,47 @@
 import axios from 'axios';
-import Deslogar from '../utils/deslogar';
+import {expirationToken} from "../utils/util";
 
 const baseURL = 'http://localhost:8080';
 
-
 class ApiResource {
     constructor(apiurl){
-        this.deslogar = Deslogar();
         this.apiurl = apiurl;
+        this.token = localStorage.getItem('token');
         this.config = {
             headers: {
                 "Content-type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem('token')}` 
+                "Authorization": `Bearer ${this.token}` 
             }
         }
     }    
     
 
     post(resource, body){
-        console.log(body)
+        expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
         return axios["post"](requestUrl, body, this.config);
     }
     
     put(resource, body){
+        expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
         console.log(body)
         return axios["put"](requestUrl, body, this.config);
     }
     
     delete(resource){
+        expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
         return axios["delete"](requestUrl, this.config);
     }
     
     get(resource,param){
+        expirationToken(this.token);
         const requestUrl = `${baseURL}${this.apiurl}${resource}${param}`;
         return axios["get"](requestUrl, this.config);
     }
 
     logar(body){
-
         const configLogin = {
             headers: {
                 'Authorization': 'Basic YWxnYXdvcmtzOjEyMw==',
@@ -49,12 +50,6 @@ class ApiResource {
         }
         const requestUrl = `${baseURL}/oauth/token`;
         return axios["post"](requestUrl, body, configLogin);
-    }
-
-    expirationToken(invalidToken){
-        if(invalidToken === "invalid_token"){
-            this.deslogar.index();
-        }
     }
 }
 
