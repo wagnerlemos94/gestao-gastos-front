@@ -9,12 +9,12 @@ import Lancamento from '../../page/lancamento';
 import LancamentoFormulario from '../../page/lancamento/formulario';
 import CategoriaFormulario from '../../page/categoria/formulario/index';
 import Categoria from '../../page/categoria/index.js';
+import Dashboard from '../../page/dashboard/index';
 
 import Navbar from '../../component/NavBar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
-    // const { token } = useContext(StoreContext);
     const token = localStorage.getItem("token");
 
     return (    
@@ -50,7 +50,7 @@ const Router = () => {
             <BrowserRouter>
                 <Switch>
                     <PublicRoute exact path="/" component={() => <Login />} />
-                    {/* <PrivateRoute exact path="/principal" component={() => <Home />} />   */}
+                    <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />  
                     <PrivateRoute exact path="/lancamentos" component={() => <Lancamento />} />  
                     <PrivateRoute exact path="/lancamentos/formulario" component={() => <LancamentoFormulario />} />  
                     <PrivateRoute exact path="/categorias/formulario" component={() => <CategoriaFormulario />} />  

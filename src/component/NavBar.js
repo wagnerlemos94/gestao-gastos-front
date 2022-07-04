@@ -7,7 +7,7 @@ const NavbarProp = (props) => {
         <>
             <Navbar bg="primary" variant="dark" expand='sm' >
                 <Container>
-                    <Navbar.Brand href=""></Navbar.Brand>
+                    <Navbar.Brand href="/dashboard">Home</Navbar.Brand>
                         <Nav className="me-auto">
                         <Nav.Link href="/lancamentos">Lançamento</Nav.Link>
                         <Nav.Link href="/categorias">Categoria</Nav.Link>

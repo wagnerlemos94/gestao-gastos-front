@@ -21,11 +21,10 @@ const Login = () => {
           }}>
             <Row className="justify-content-md-end mr-4">
                 <Col md="auto" className="mt-5">
-                    <Card title={"Bem - Vindo"} button="Logar" className="bg-info mt-5 p-4">
+                    <Card title={"Bem - Vindo"} button="Logar" className="mt-5 p-4">
                         <Form className="mt-4">
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Login</Form.Label>
-                                {/* <Form.Control type="email" onChange={e => form.login = e.target.value} placeholder="Login" name="email"  required/> */}
                                 <InputMask type="text" mask="999.999.999-99" placeholder="000.000.000-00" value={form.login} onChange={e => functions.setValue(prevState => {return { ...prevState, login: e.target.value }})} 
                                 name="login" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </Form.Group>

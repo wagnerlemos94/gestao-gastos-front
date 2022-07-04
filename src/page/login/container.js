@@ -30,7 +30,7 @@ const useContainer = () => {
             const data = response.data;
             localStorage.setItem('username', form.login);
             localStorage.setItem('token', data.access_token);
-            history.push('/lancamentos');
+            history.push('/dashboard');
         }).catch(erro => {
             error("Usuario ou senha inválido");
         });
