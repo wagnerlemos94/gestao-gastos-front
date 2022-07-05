@@ -15,7 +15,7 @@ const heroku = () => {
 function App() {
   return (
     <Suspense fallback={<h1>Carregando</h1>}>
-      
+        {heroku()}
         <Router />
     </Suspense>
   );
