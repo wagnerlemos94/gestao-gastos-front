@@ -26,6 +26,18 @@ const useContainer = () =>{
         valor:undefined,
         mes:undefined
     }
+
+    const currencyConfig = {
+        locale: "pt-BR",
+        formats: {
+          number: {
+            BRL: {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            },
+          },
+        },
+      };
     
     const [value, setValue] = useState(inicialState); 
     const [titulo, setTitulo] = useState(null); 
@@ -102,6 +114,7 @@ const useContainer = () =>{
             setTitulo("Novo cadastro");
         }
         categoriaService.listar().then(response => {
+            console.log(response.data)
             setcategoria(response.data);
         }).catch(responseErro => {
             console.log(responseErro.response);
@@ -109,6 +122,7 @@ const useContainer = () =>{
     },[]);
 
     return{
+        currencyConfig,
         titulo:titulo,
         categorias:categorias,
         meses,

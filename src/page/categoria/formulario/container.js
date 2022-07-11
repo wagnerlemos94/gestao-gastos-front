@@ -5,20 +5,20 @@ import listMeses from '../../../services/utils/listMeses';
 import { success, error}  from  "../../../component/Toast";
 import { useHistory } from 'react-router-dom';
 import CategoriaResource from "../../../services/resource/categoriaResource";
+import GrupoResource from "../../../services/resource/GrupoResource";
 
 const useContainer = () =>{
 
-    const service = new CategoriaResource();
+    const categoriaResource = new CategoriaResource();
+    const grupoResource = new GrupoResource();
 
-
-    const [categorias, setcategoria] = useState(null);
-    const {meses} = listMeses();
-    
+    const [grupos, setGrupo] = useState(null);
     const history = useHistory();
 
     
     const inicialState  = {
-        nome:undefined
+        nome:undefined,
+        grupo:undefined
     }
     
     const [value, setValue] = useState(inicialState); 
@@ -43,14 +43,15 @@ const useContainer = () =>{
     const salvar = (form) => {
         if(validarFormulario(form)){
             let body = {
-                nome:form.nome
+                nome:form.nome,
+                grupo:form.grupo
             }        
         
             if(history.location.state){
                 const id = history.location.state.id;
                 body.id = id
-                service.atualizar(id, body).then( response => {
-                    history.push('/lancamentos');
+                categoriaResource.atualizar(id, body).then( response => {
+                    history.push('/categorias');
                     success("Registro Editado com sucesso!");
                 }).catch( responseErro => {
                     const erros =  responseErro.response.data.errors;
@@ -61,9 +62,9 @@ const useContainer = () =>{
                     }
                 });
             }else{
-                service.salvar(body).then( response => {
+                categoriaResource.salvar(body).then( response => {
                     success("Registro Cadastrado com sucesso!");
-                    history.push('/lancamentos');
+                    history.push('/categorias');
                 }).catch( responseErro => {
                     const erros =  responseErro.response.data.errors;
                     Object.values(erros).map(erro => {
@@ -82,8 +83,9 @@ const useContainer = () =>{
         }else{
             setTitulo("Novo cadastro");
         }
-        get("categorias").then(response => {
-            setcategoria(response.data);
+        grupoResource.listar()
+        .then(response => {
+            setGrupo(response.data);
         }).catch(erro => {
             console.log(erro.response)
         })
@@ -91,7 +93,7 @@ const useContainer = () =>{
 
     return{
         titulo:titulo,
-        categoria:categorias,
+        grupos:grupos,
         form:value,
         functions:{
             salvar,

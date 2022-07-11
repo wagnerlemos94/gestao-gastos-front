@@ -16,7 +16,7 @@ const useContainer = () => {
     const [valores, setValores] = useState(null);
     const [ urlParameters, setUrlParameters ] = useState(history.location.search);
     const [ mesSelecionado, setMesSelecionado ] = useState(null);
-
+    
     const {meses} = listMeses();
 
     const getMesId = (id) => {
@@ -26,6 +26,16 @@ const useContainer = () => {
           setMesSelecionado(mes.nome);
         }
       });
+    }
+
+    const getMesNome = (nome) => {
+      let mesId = 0;
+      meses.forEach( mes => {
+        if(mes.nome.toUpperCase() == nome){
+          mesId = mes.id;
+        }
+      });
+      return mesId;
     }
     
     const timeElapsed = Date.now();
@@ -76,6 +86,10 @@ const useContainer = () => {
 
       const editar = (lancamento) => {
         lancamento.acoes = null
+        lancamento.tipo = lancamento.tipo == "RECEITA" ? 1 : 2;
+        lancamento.mes = getMesNome(lancamento.mes);
+        lancamento.categoria = lancamento.idCategoria;
+        console.log(lancamento);
         history.push("/lancamentos/formulario",lancamento)
       }
 

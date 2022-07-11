@@ -29,6 +29,11 @@ const useContainer = () => {
             'aria-controls': 'DataTable',
             'aria-label': 'Name',
           },
+          
+        },{
+          label: 'Grupo',
+          field: 'grupo',
+          width: 200,
         },{
           label: 'Ações',
           field: 'acoes',
@@ -38,6 +43,7 @@ const useContainer = () => {
 
     const editar = (categoria) => {
         categoria.acoes = null
+        categoria.grupo = categoria.grupoId,
         history.push("/categorias/formulario",categoria)
       }
 
