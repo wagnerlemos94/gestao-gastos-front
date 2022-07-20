@@ -8,8 +8,10 @@ import Login from '../../page/login';
 import Lancamento from '../../page/lancamento';
 import LancamentoFormulario from '../../page/lancamento/formulario';
 import CategoriaFormulario from '../../page/categoria/formulario/index';
+import GrupoFormulario from '../../page/grupo/formulario/index';
 import Categoria from '../../page/categoria/index.js';
 import Dashboard from '../../page/dashboard/index';
+import Grupo from '../../page/grupo/index';
 
 import Navbar from '../../component/NavBar';
 
@@ -53,8 +55,10 @@ const Router = () => {
                     <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />  
                     <PrivateRoute exact path="/lancamentos" component={() => <Lancamento />} />  
                     <PrivateRoute exact path="/lancamentos/formulario" component={() => <LancamentoFormulario />} />  
-                    <PrivateRoute exact path="/categorias/formulario" component={() => <CategoriaFormulario />} />  
                     <PrivateRoute exact path="/categorias" component={() => <Categoria />} />  
+                    <PrivateRoute exact path="/categorias/formulario" component={() => <CategoriaFormulario />} />  
+                    <PrivateRoute exact path="/grupos" component={() => <Grupo />} /> 
+                    <PrivateRoute exact path="/grupos/formulario" component={() => <GrupoFormulario />} /> 
                 </Switch>
             </BrowserRouter>
     );

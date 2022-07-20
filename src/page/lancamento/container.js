@@ -43,17 +43,16 @@ const useContainer = () => {
 
     const coluns = [
         {
-          label: 'Descricao',
-          field: 'descricao',
+          label: 'Categoria',
+          field: 'categoria',
           width: 150,
           attributes: {
             'aria-controls': 'DataTable',
             'aria-label': 'Name',
           },
-        },
-        {
-          label: 'Categoria',
-          field: 'categoria',
+        },{
+          label: 'Grupo',
+          field: 'grupo',
           width: 270,
         },
         {
@@ -125,10 +124,10 @@ const useContainer = () => {
               <>
               <a className="mr-2" id={lancamento.id}
                onClick={e => editar(lancamento)}>
-                <MDBIcon far icon="edit" id={lancamento.id} />
+                <MDBIcon icon="search" id={lancamento.id} />
               </a>
               <a className="ml-2" id={lancamento.id} onClick={e => deletar(lancamento.id)}>
-                <MDBIcon far icon="trash-alt" id={lancamento.id} />
+                <MDBIcon icon="trash-alt" id={lancamento.id} />
               </a>
               </>            
             }
