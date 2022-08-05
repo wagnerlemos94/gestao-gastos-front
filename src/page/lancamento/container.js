@@ -56,11 +56,6 @@ const useContainer = () => {
           width: 270,
         },
         {
-          label: 'Mês',
-          field: 'mes',
-          width: 270,
-        },
-        {
           label: 'Tipo',
           field: 'tipo',
           width: 270,
@@ -83,6 +78,9 @@ const useContainer = () => {
         getMesId(valorMes);
       }
 
+      const detalhes = (categoriaId) => {
+        listarLancamentosPorCategoria(categoriaId);
+      }
       const editar = (lancamento) => {
         lancamento.acoes = null
         lancamento.tipo = lancamento.tipo == "RECEITA" ? 1 : 2;
@@ -106,6 +104,7 @@ const useContainer = () => {
               Swal.fire('Registro Deletado com sucesso!', '', 'success')
               listarLancamentos();
             }).catch( erro => {
+              console.log(erro);
               Swal.fire('Algo deu errado', '', 'info')
             });
           }
@@ -115,20 +114,53 @@ const useContainer = () => {
       }
 
       const listarLancamentos = () => {
-        service.listar(urlParameters).then(response => {
+        if(lancamento && lancamento.id){
+          listarLancamentosPorCategoria();
+        }else{
+          listarLancamentosAgrupada();
+        }
+        service.listarValores(urlParameters).then(response => {
+          setValores(response.data);
+        }).catch(erro => {
+          console.log(erro.response);
+        });
+      }
+
+      const listarLancamentosAgrupada = () => {
+        service.listarAgrupada(urlParameters).then(response => {
+          const lancamentos = response.data;
+          Object.values(lancamentos).map( lancamento => {
+            lancamento.valor = formatarMoeda(lancamento.valor);
+            lancamento.acoes =   
+            <a className="mr-2" onClick={e => detalhes(lancamento.categoriaId)}>
+                <MDBIcon icon="search" />
+              </a>   
+          });
+          setLancamento(lancamentos);
+          getMesId(urlParameters);
+        }).catch(erro => {
+          console.log(erro.response);
+        });
+        service.listarValores(urlParameters).then(response => {
+          setValores(response.data);
+        }).catch(erro => {
+          console.log(erro.response);
+        });
+      }
+      const listarLancamentosPorCategoria = (id) => {
+        service.listarLancamentoPorCategoria(id).then(response => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);
             if(lancamento.tipo != "SALDO"){
               lancamento.acoes =   
               <>
-              <a className="mr-2" id={lancamento.id}
-               onClick={e => editar(lancamento)}>
-                <MDBIcon icon="search" id={lancamento.id} />
-              </a>
-              <a className="ml-2" id={lancamento.id} onClick={e => deletar(lancamento.id)}>
-                <MDBIcon icon="trash-alt" id={lancamento.id} />
-              </a>
+                <a className="mr-2" onClick={e => editar(lancamento)}>
+                  <MDBIcon icon="edit" />
+                </a>
+                <a className="ml-2" id={lancamento.id} onClick={e => deletar(lancamento.id)}>
+                  <MDBIcon icon="trash-alt" id={lancamento.id} />
+                </a>
               </>            
             }
           });
@@ -143,6 +175,7 @@ const useContainer = () => {
           console.log(erro.response);
         });
       }
+      
       
       useEffect(() => {
         listarLancamentos();

@@ -42,8 +42,8 @@ const useContainer = () => {
       ]
 
     const editar = (categoria) => {
-        categoria.acoes = null
-        categoria.grupo = categoria.grupoId,
+        categoria.acoes = null;
+        categoria.grupo = categoria.grupoId;
         history.push("/categorias/formulario",categoria)
       }
 
