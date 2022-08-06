@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import listMeses from '../../../services/utils/listMeses';
 import LancamentoResource from "../../../services/resource/lancamentoResource";
-import CategoriaResource from "../../../services/resource/categoriaResource";
+import GrupoResource from "../../../services/resource/GrupoResource";
 import {formatarMoedaDoble} from "../../../services/utils/util";
 
 import { success, error}  from  "../../../component/Toast";
@@ -10,10 +10,10 @@ import { useHistory } from 'react-router-dom';
 const useContainer = () =>{
 
     const lancamentoService = new LancamentoResource();
-    const categoriaService = new CategoriaResource();
+    const grupoService = new GrupoResource();
 
 
-    const [categorias, setcategoria] = useState([]);
+    const [grupos, setcategoria] = useState([]);
     const {meses} = listMeses();
     
     const history = useHistory();
@@ -113,7 +113,7 @@ const useContainer = () =>{
         }else{
             setTitulo("Novo cadastro");
         }
-        categoriaService.listar().then(response => {
+        grupoService.listar().then(response => {
             console.log(response.data)
             setcategoria(response.data);
         }).catch(responseErro => {
@@ -124,7 +124,7 @@ const useContainer = () =>{
     return{
         currencyConfig,
         titulo:titulo,
-        categorias:categorias,
+        grupos:grupos,
         meses,
         tipo:tipo,
         form:value,

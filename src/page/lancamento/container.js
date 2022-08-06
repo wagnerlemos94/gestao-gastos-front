@@ -78,8 +78,8 @@ const useContainer = () => {
         getMesId(valorMes);
       }
 
-      const detalhes = (categoriaId) => {
-        listarLancamentosPorCategoria(categoriaId);
+      const detalhes = (lancamento) => {
+        listarLancamentosPorCategoria(lancamento.categoriaId,lancamento.tipo);
       }
       const editar = (lancamento) => {
         lancamento.acoes = null
@@ -132,7 +132,7 @@ const useContainer = () => {
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);
             lancamento.acoes =   
-            <a className="mr-2" onClick={e => detalhes(lancamento.categoriaId)}>
+            <a className="mr-2" onClick={e => detalhes(lancamento)}>
                 <MDBIcon icon="search" />
               </a>   
           });
@@ -147,8 +147,8 @@ const useContainer = () => {
           console.log(erro.response);
         });
       }
-      const listarLancamentosPorCategoria = (id) => {
-        service.listarLancamentoPorCategoria(id).then(response => {
+      const listarLancamentosPorCategoria = (id,tipo) => {
+        service.listarLancamentoPorCategoria(`${id}/lancamento/${tipo}`).then(response => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);

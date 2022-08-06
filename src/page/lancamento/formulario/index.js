@@ -3,12 +3,13 @@ import InputMask from 'react-input-mask';
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import Card from "../../../component/Card";
 import Select from '../../../component/Select';
+import SelectOptgroup from '../../../component/SelectOptgroup';
 import useContainer from "./container";
 import IntlCurrencyInput from "react-intl-currency-input"
 
 const Formulario = () => {
 
-    const { categorias, meses, tipo, functions, form, titulo, currencyConfig} = useContainer();
+    const { grupos, meses, tipo, functions, form, titulo, currencyConfig} = useContainer();
 
     return(
         <Container className="mt-5">
@@ -25,7 +26,7 @@ const Formulario = () => {
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Categoria</span>
-                                <Select name="categoria" onChange={e => functions.setValue(prevState => {return { ...prevState, categoria: e.target.value }})} array={categorias} selected={form.categoria ? form.categoria : form.categoria} required="true"></Select>
+                                <SelectOptgroup name="categoria" onChange={e => functions.setValue(prevState => {return { ...prevState, categoria: e.target.value }})} array={grupos} selected={form.categoria ? form.categoria : form.categoria} required="true"></SelectOptgroup>
                             </div>
                         </Col>
                         <Col className="col-6">
