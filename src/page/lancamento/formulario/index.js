@@ -9,7 +9,7 @@ import IntlCurrencyInput from "react-intl-currency-input"
 
 const Formulario = () => {
 
-    const { grupos, meses, tipo, functions, form, titulo, currencyConfig} = useContainer();
+    const { grupos, tipo, functions, form, titulo, currencyConfig} = useContainer();
 
     return(
         <Container className="mt-5">
@@ -31,8 +31,9 @@ const Formulario = () => {
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Mês</span>
-                                <Select name="mes" onChange={e => functions.setValue(prevState => {return { ...prevState, mes: e.target.value }})} array={meses} selected={form.mes ? form.mes : form.mes} required="true"></Select>
+                                <span className="input-group-text" id="inputGroup-sizing-default">Data</span>
+                                <InputMask type="date" name="data" id="data" value={form.data} onChange={e => functions.setValue(prevState => {return { ...prevState, data: e.target.value }})} 
+                                className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
                         <Col className="col-6">

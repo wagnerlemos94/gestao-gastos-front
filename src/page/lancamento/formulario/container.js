@@ -24,7 +24,7 @@ const useContainer = () =>{
         tipo:undefined,
         categoria:undefined,
         valor:undefined,
-        mes:undefined
+        data:undefined
     }
 
     const currencyConfig = {
@@ -74,7 +74,7 @@ const useContainer = () =>{
                 descricao:form.descricao,
                 tipo:form.tipo,
                 valor:formatarMoedaDoble(form.valor),
-                mes:form.mes,
+                data:form.data,
                 categoria:form.categoria
             }      
             if(history.location.state){

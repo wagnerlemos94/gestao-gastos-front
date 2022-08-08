@@ -3,6 +3,7 @@ import lancamentoResource from "../../services/resource/lancamentoResource";
 import listMeses from '../../services/utils/listMeses';
 import { MDBIcon } from "mdbreact";
 import Swal from 'sweetalert2'
+import { warning }  from  "../../component/Toast";
 import {formatarMoeda,formatarMoedaDoble} from "../../services/utils/util";
 
 import { useHistory } from 'react-router-dom';
@@ -13,13 +14,14 @@ const useContainer = () => {
 
     const history = useHistory();
     const [lancamento, setLancamento] = useState(null);
+    const [filtroData, setFiltroData] = useState(null);
     const [valores, setValores] = useState(null);
     const [ urlParameters, setUrlParameters ] = useState(history.location.search);
     const [ mesSelecionado, setMesSelecionado ] = useState(null);
     
     const {meses} = listMeses();
 
-    const getMesId = (id) => {
+    const getParametroData = (id) => {
       id = id.replace(/[^\d]+/g,'');
       meses.forEach( mes => {
         if(mes.id == id){
@@ -73,9 +75,9 @@ const useContainer = () => {
       ]
 
       if(!urlParameters){
-        const valorMes = today.toLocaleDateString().substring(4,5);
-        setUrlParameters(`?mes=${valorMes}`);
-        getMesId(valorMes);
+        const data = today.toISOString().substring(0,8);
+        setUrlParameters(`?dataInicio=${data}01&dataFinal=${data}30`);
+        getParametroData(data);
       }
 
       const detalhes = (lancamento) => {
@@ -84,7 +86,6 @@ const useContainer = () => {
       const editar = (lancamento) => {
         lancamento.acoes = null
         lancamento.tipo = lancamento.tipo == "RECEITA" ? 1 : 2;
-        lancamento.mes = getMesNome(lancamento.mes);
         lancamento.categoria = lancamento.idCategoria;
         console.log(lancamento);
         history.push("/lancamentos/formulario",lancamento)
@@ -126,6 +127,25 @@ const useContainer = () => {
         });
       }
 
+      const filtro = () => {
+        try {
+          const dataInicio = filtroData.dataInicio;
+          const dataFinal = filtroData.dataFinal;
+          if(dataInicio.length == 0){
+            warning("Preencha a data Inicio");
+            return false;
+          }
+          if(dataFinal.length == 0){
+            warning("Preencha a data Final");
+            return false;
+          }
+          setUrlParameters(`?dataInicio=${dataInicio}&dataFinal=${dataFinal}`);
+        } catch (error) {
+          warning("Preencha as datas do filtro");
+        }
+        
+      }
+
       const listarLancamentosAgrupada = () => {
         service.listarAgrupada(urlParameters).then(response => {
           const lancamentos = response.data;
@@ -137,7 +157,7 @@ const useContainer = () => {
               </a>   
           });
           setLancamento(lancamentos);
-          getMesId(urlParameters);
+          getParametroData(urlParameters);
         }).catch(erro => {
           console.log(erro.response);
         });
@@ -148,7 +168,8 @@ const useContainer = () => {
         });
       }
       const listarLancamentosPorCategoria = (id,tipo) => {
-        service.listarLancamentoPorCategoria(`${id}/lancamento/${tipo}`).then(response => {
+        const parametro = `${urlParameters}&categoria=${id}&tipo=${tipo}`;
+        service.listarLancamentoPorCategoria(parametro).then(response => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);
@@ -165,7 +186,7 @@ const useContainer = () => {
             }
           });
           setLancamento(lancamentos);
-          getMesId(urlParameters);
+          getParametroData(urlParameters);
         }).catch(erro => {
           console.log(erro.response);
         });
@@ -184,13 +205,16 @@ const useContainer = () => {
 
     return{
         mesSelecionado:mesSelecionado,
+        filtroData:filtroData,
         valores:valores,
         datatable:{
           columns: coluns,
           rows: lancamento ? lancamento : [],
         },
         functions:{
-          formatarMoeda    
+          formatarMoeda,
+          setFiltroData,
+          filtro  
         }
     }
 }

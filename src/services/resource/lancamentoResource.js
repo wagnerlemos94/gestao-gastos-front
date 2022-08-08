@@ -17,7 +17,7 @@ class LancamentoResource extends ApiResource{
         return this.get("agrupados",`${urlParam}`);
     }
     listarLancamentoPorCategoria(urlParam){
-        return this.get("categoria",`/${urlParam}`);
+        return this.get("detalhes",`${urlParam}`);
     }
 
 
