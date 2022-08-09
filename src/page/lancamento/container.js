@@ -12,12 +12,17 @@ const useContainer = () => {
   
     const service = new lancamentoResource();
 
+    const descricaoOuGrupo = {
+      label: 'Grupo',
+      field: 'grupo',
+    };
     const history = useHistory();
+    const [valores, setValores] = useState(null);
     const [lancamento, setLancamento] = useState(null);
     const [filtroData, setFiltroData] = useState(null);
-    const [valores, setValores] = useState(null);
-    const [ urlParameters, setUrlParameters ] = useState(history.location.search);
+    const [colunDescricaoOuGrupo, setDescricaoOuGrupo] = useState(descricaoOuGrupo);
     const [ mesSelecionado, setMesSelecionado ] = useState(null);
+    const [ urlParameters, setUrlParameters ] = useState(history.location.search);
     
     const {meses} = listMeses();
 
@@ -53,8 +58,8 @@ const useContainer = () => {
             'aria-label': 'Name',
           },
         },{
-          label: 'Grupo',
-          field: 'grupo',
+          label: colunDescricaoOuGrupo.label,
+          field: colunDescricaoOuGrupo.field,
           width: 270,
         },
         {
@@ -81,6 +86,7 @@ const useContainer = () => {
       }
 
       const detalhes = (lancamento) => {
+        setDescricaoOuGrupo({label:"Descrição", field:"descricao"});
         listarLancamentosPorCategoria(lancamento.categoriaId,lancamento.tipo);
       }
       const editar = (lancamento) => {
@@ -214,7 +220,7 @@ const useContainer = () => {
         functions:{
           formatarMoeda,
           setFiltroData,
-          filtro  
+          filtro,
         }
     }
 }
