@@ -26,19 +26,19 @@ const Lancamento = () => {
             </div>
             </div>
             <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      <Dropdown.Toggle variant="success" className="btn btn-sm" id="dropdown-basic">
           Filtro
       </Dropdown.Toggle>
       <Dropdown.Menu>
           <div className="row">
               <div className="col-5 ml-2">
-                <span className="" id="inputGroup-sizing-default">Inicio:</span>
+                <span className="" id="inputGroup-sizing-default">Data Inicio:</span>
                 <InputMask type="date" name="data" id="data" className="form-control" 
                 onChange={e => functions.setFiltroData(prevState => {return { ...prevState, dataInicio: e.target.value }})} 
                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
               </div>
             <div className="col-5 mr-1">
-                <span className="" id="inputGroup-sizing-default">Final:</span>
+                <span className="" id="inputGroup-sizing-default">Data Final:</span>
                 <InputMask type="date" name="data" id="data" className="form-control"
                 onChange={e => functions.setFiltroData(prevState => {return { ...prevState, dataFinal: e.target.value }})} 
                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
