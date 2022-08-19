@@ -20,15 +20,24 @@ const useContainer = () => {
     const [value, setValue] = useState(inicialState); 
 
     const login = (form) => {
+        const username = form.login.replace(/[^\d]+/g,'');
         const body = qs.stringify({
             grant_type: 'password',
-            username: form.login.replace(/[^\d]+/g,''),
+            username: username,
             password: form.senha,
         });
 
         service.login(body).then(response => {
             const data = response.data;
-            localStorage.setItem('username', form.login);
+            service.buscarPorLogin(`${username}`).then( response => {
+                const usuarioLogado = {
+                    nome: response.data.nome,
+                    login:response.data.login
+                }
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+            }).catch( err => {
+                console.log(err.response);
+            });
             localStorage.setItem('token', data.access_token);
             history.push('/dashboard');
         }).catch(erro => {

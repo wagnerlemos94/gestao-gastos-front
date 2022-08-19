@@ -8,6 +8,10 @@ class UsuarioResource extends ApiResource{
     login(body){
         return this.logar(body);
     }
+
+    buscarPorLogin(urlParam){
+        return this.get("/login/",`${urlParam}`);
+    }
 }
 
 export default UsuarioResource;

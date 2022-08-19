@@ -18,7 +18,7 @@ const Lancamento = () => {
     
     return(
         <Container className="mt-2">    
-            <h1 className="text-center">Lançamentos</h1>
+            <h1 className="text-center">Lançamentos do Mês</h1>
             <div className="row">          
             
             <div className="text-right">
