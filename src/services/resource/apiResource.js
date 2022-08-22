@@ -3,7 +3,7 @@ import {expirationToken} from "../utils/util";
 
 // const baseURL = 'http://localhost:8080';
 // const baseURL = 'https://financeiro-gastos-api.herokuapp.com';
-const baseURL = 'http://35.230.115.168:8080';
+const baseURL = 'http://34.168.254.192:8080';
 
 class ApiResource {
     constructor(apiurl){
