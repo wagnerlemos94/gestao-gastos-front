@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {expirationToken} from "../utils/util";
 
-const baseURL = 'http://localhost:8080';
+// const baseURL = 'http://localhost:8080';
 // const baseURL = 'https://financeiro-gastos-api.herokuapp.com';
 // const baseURL = 'https://gestao-financeira-359011.uc.r.appspot.com';
+const baseURL = 'http://34.168.254.192:8080';
 
 class ApiResource {
     constructor(apiurl){
