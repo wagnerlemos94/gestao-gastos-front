@@ -8,39 +8,41 @@ const baseURL = 'http://localhost:8080';
 class ApiResource {
     constructor(apiurl){
         this.apiurl = apiurl;
-        this.token = localStorage.getItem('token');
-        this.config = {
+    }   
+    
+    getConfig(){
+        return {
             headers: {
                 "Content-type": "application/json",
-                "Authorization": `Bearer ${this.token}` 
+                "Authorization": `Bearer ${localStorage.getItem('token')}` 
             }
         }
-    }    
+    }
     
 
     post(resource, body){
         expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
-        return axios["post"](requestUrl, body, this.config);
+        return axios["post"](requestUrl, body, this.getConfig());
     }
     
     put(resource, body){
         expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
         console.log(body)
-        return axios["put"](requestUrl, body, this.config);
+        return axios["put"](requestUrl, body, this.getConfig());
     }
     
     delete(resource){
         expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
-        return axios["delete"](requestUrl, this.config);
+        return axios["delete"](requestUrl, this.getConfig());
     }
     
     get(resource,param){
-        expirationToken(this.token);
+        expirationToken();
         const requestUrl = `${baseURL}${this.apiurl}${resource}${param}`;
-        return axios["get"](requestUrl, this.config);
+        return axios["get"](requestUrl, this.getConfig());
     }
 
     logar(body){

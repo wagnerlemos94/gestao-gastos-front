@@ -12,6 +12,10 @@ class UsuarioResource extends ApiResource{
     buscarPorLogin(urlParam){
         return this.get("/login/",`${urlParam}`);
     }
+
+    atualizar(id,body){
+        return this.put(`/${id}`,body);
+    }
 }
 
 export default UsuarioResource;

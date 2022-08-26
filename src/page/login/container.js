@@ -29,19 +29,24 @@ const useContainer = () => {
 
         service.login(body).then(response => {
             const data = response.data;
-            service.buscarPorLogin(`${username}`).then( response => {
-                const usuarioLogado = {
-                    nome: response.data.nome,
-                    login:response.data.login
-                }
-                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
-            }).catch( err => {
-                console.log(err.response);
-            });
             localStorage.setItem('token', data.access_token);
-            history.push('/dashboard');
+            buscarUsuario(username);
         }).catch(erro => {
             error("Usuario ou senha inválido");
+        });        
+    }
+
+    const buscarUsuario = (username) => {
+        service.buscarPorLogin(`${username}`).then( response => {
+            const usuarioLogado = {
+                id: response.data.id,
+                nome: response.data.nome,
+                login:response.data.login
+            }
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+            history.push('/dashboard');
+        }).catch( err => {
+            console.log(err.response);
         });
     }
 

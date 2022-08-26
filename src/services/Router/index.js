@@ -12,6 +12,7 @@ import GrupoFormulario from '../../page/grupo/formulario/index';
 import Categoria from '../../page/categoria/index.js';
 import Dashboard from '../../page/dashboard/index';
 import Grupo from '../../page/grupo/index';
+import UsuarioFormulario from '../../page/usuario/formulario/index';
 
 import Navbar from '../../component/NavBar';
 
@@ -59,6 +60,7 @@ const Router = () => {
                     <PrivateRoute exact path="/categorias/formulario" component={() => <CategoriaFormulario />} />  
                     <PrivateRoute exact path="/grupos" component={() => <Grupo />} /> 
                     <PrivateRoute exact path="/grupos/formulario" component={() => <GrupoFormulario />} /> 
+                    <PrivateRoute exact path="/usuarios" component={() => <UsuarioFormulario />} /> 
                 </Switch>
             </BrowserRouter>
     );

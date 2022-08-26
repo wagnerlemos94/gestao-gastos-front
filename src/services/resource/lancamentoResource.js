@@ -5,10 +5,6 @@ class LancamentoResource extends ApiResource{
         super('/lancamentos/');
     }
 
-    heroku(){
-        return this.get("heroku",``);
-    }
-
     listar(urlParam){
         return this.get("",`${urlParam}`);
     }

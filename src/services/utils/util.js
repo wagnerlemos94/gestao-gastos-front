@@ -10,14 +10,14 @@ export const formatarMoedaDoble = (valor) => {
     return valor.substr(0,posicaoDoPonto)+"."+valor.substr(posicaoDoPonto);
 }
 
-export const expirationToken = (token) => {
+export const expirationToken = () => {
     if(isExpired(localStorage.getItem('token'))){
-        Deslogar()
+        Deslogar();
     }
 }
 
 export const Deslogar = () => {    
-    localStorage.removeItem('username');
+    localStorage.removeItem('usuarioLogado');
     localStorage.removeItem('token');    
     window.location.href = "/"
 }
