@@ -5,6 +5,7 @@ import { MDBIcon } from "mdbreact";
 import Swal from 'sweetalert2'
 import { warning }  from  "../../component/Toast";
 import {formatarMoeda,formatarMoedaDoble} from "../../services/utils/util";
+import { lancamentos, lancamentosDetalhe } from "../../component/DatatableColouns";
 
 import { useHistory } from 'react-router-dom';
 
@@ -12,17 +13,13 @@ const useContainer = () => {
   
     const service = new lancamentoResource();
 
-    const descricaoOuGrupo = {
-      label: 'Grupo',
-      field: 'grupo',
-    };
     const history = useHistory();
     const [valores, setValores] = useState(null);
     const [lancamento, setLancamento] = useState(null);
     const [filtroData, setFiltroData] = useState(null);
-    const [colunDescricaoOuGrupo, setDescricaoOuGrupo] = useState(descricaoOuGrupo);
     const [ mesSelecionado, setMesSelecionado ] = useState(null);
     const [ urlParameters, setUrlParameters ] = useState(history.location.search);
+    const [coluns, setColuns] = useState(lancamentos());
     
     const {meses} = listMeses();
 
@@ -47,38 +44,7 @@ const useContainer = () => {
     
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-
-    const coluns = [
-        {
-          label: 'Categoria',
-          field: 'categoria',
-          width: 150,
-          attributes: {
-            'aria-controls': 'DataTable',
-            'aria-label': 'Name',
-          },
-        },{
-          label: colunDescricaoOuGrupo.label,
-          field: colunDescricaoOuGrupo.field,
-          width: 270,
-        },
-        {
-          label: 'Tipo',
-          field: 'tipo',
-          width: 270,
-        },
-        {
-          label: 'Valor',
-          field: 'valor',
-          width: 270,
-        },
-        {
-          label: 'Ações',
-          field: 'acoes',
-          width: 200,
-        }
-      ]
-
+    
       if(!urlParameters){
         const data = today.toISOString().substring(0,8);
         setUrlParameters(`?dataInicio=${data}01&dataFinal=${data}30`);
@@ -86,7 +52,7 @@ const useContainer = () => {
       }
 
       const detalhes = (lancamento) => {
-        setDescricaoOuGrupo({label:"Descrição", field:"descricao"});
+        setColuns(lancamentosDetalhe());
         listarLancamentosPorCategoria(lancamento.categoriaId,lancamento.tipo);
       }
       const editar = (lancamento) => {
@@ -179,6 +145,7 @@ const useContainer = () => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);
+            // lancamento.data = new Date(lancamento.data).toLocaleString();
             if(lancamento.tipo != "SALDO"){
               lancamento.acoes =   
               <>
