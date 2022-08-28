@@ -9,7 +9,7 @@ import IntlCurrencyInput from "react-intl-currency-input"
 
 const Formulario = () => {
 
-    const { grupos, tipo, functions, form, titulo, currencyConfig} = useContainer();
+    const { grupos, tipo, parcela,functions, form, titulo, currencyConfig} = useContainer();
 
     return(
         <Container className="mt-5">
@@ -42,7 +42,7 @@ const Formulario = () => {
                                 <Select name="tipo" onChange={e => functions.setValue(prevState => {return { ...prevState, tipo: e.target.value }})} array={tipo} selected={form.tipo ? form.tipo : form.tipo} required="true"></Select>
                             </div>
                         </Col>
-                        <Col className="col-6">
+                        <Col className="col">
                             <div className="input-group mb-3 mt-4">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Valor</span>
                                 <IntlCurrencyInput type="text" currency="BRL" config={currencyConfig}
@@ -50,7 +50,18 @@ const Formulario = () => {
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
-                        <Col className="text-right mt-5">
+                        { titulo === "Novo cadastro" ? (
+                            <Col className="col">
+                                <div className="input-group mb-3 mt-4">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Parcela</span>
+                                    <Select name="parcela" onChange={e => functions.setValue(prevState => {return { ...prevState, parcela: e.target.value }})} array={parcela} selected={form.parcela ? form.parcela : form.parcela} required="true"></Select>
+                                </div>
+                            </Col>
+                        ):(
+                            <></>
+                        )
+                        }
+                        <Col className="col-12 text-right mt-5">
                             <Button type="button" onClick={() => functions.salvar(form)} className="btn-md">Salvar</Button>
                             <Button className="btn-md" variant="danger" href="/lancamentos">Cancelar</Button>
                         </Col>

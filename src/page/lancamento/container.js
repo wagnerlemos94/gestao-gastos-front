@@ -59,7 +59,7 @@ const useContainer = () => {
         lancamento.acoes = null
         lancamento.tipo = lancamento.tipo == "RECEITA" ? 1 : 2;
         lancamento.categoria = lancamento.idCategoria;
-        console.log(lancamento);
+        lancamento.data = lancamento.data.split('/').reverse().join('-');
         history.push("/lancamentos/formulario",lancamento)
       }
 
@@ -145,7 +145,7 @@ const useContainer = () => {
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);
-            // lancamento.data = new Date(lancamento.data).toLocaleString();
+            lancamento.data = new Date(lancamento.data).toLocaleString().substring(0,10);
             if(lancamento.tipo != "SALDO"){
               lancamento.acoes =   
               <>

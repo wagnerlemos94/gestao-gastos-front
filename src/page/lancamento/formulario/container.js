@@ -24,7 +24,8 @@ const useContainer = () =>{
         tipo:undefined,
         categoria:undefined,
         valor:undefined,
-        data:undefined
+        data:undefined,
+        parcela:undefined
     }
 
     const currencyConfig = {
@@ -53,8 +54,23 @@ const useContainer = () =>{
         }
     ]
 
-    const validarFormulario = (form) => {
+    const arrayParcelar = () =>{
+        const parcela = [];
+        parcela.push({
+            id:1,
+            nome: `Á vista`
+        })
+        for(let i=2;i<=12;i++){
+            parcela.push({
+                id:i,
+                nome: `${i} vezes`
+            })
+        }
 
+        return parcela;
+    }
+    
+    const validarFormulario = (form) => {
         let isValidate = true;
 
         Object.keys(form).forEach((chave) => {          
@@ -69,13 +85,15 @@ const useContainer = () =>{
     }
 
     const salvar = (form) => {
-        if(validarFormulario(form)){
+        if(validarFormulario(form)){            
             let body = {
                 descricao:form.descricao,
                 tipo:form.tipo,
                 valor:formatarMoedaDoble(form.valor),
                 data:form.data,
-                categoria:form.categoria
+                categoria:form.categoria,
+                parcela:form.parcela
+                
             }      
             if(history.location.state){
                 const id = history.location.state.id;
@@ -127,6 +145,7 @@ const useContainer = () =>{
         grupos:grupos,
         meses,
         tipo:tipo,
+        parcela:arrayParcelar(),
         form:value,
         functions:{
             salvar,
