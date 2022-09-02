@@ -92,7 +92,8 @@ const useContainer = () =>{
                 valor:formatarMoedaDoble(form.valor),
                 data:form.data,
                 categoria:form.categoria,
-                parcela:form.parcela
+                parcela:form.parcela,
+                mes:form.mes
                 
             }      
             if(history.location.state){

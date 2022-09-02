@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import lancamentoResource from "../../services/resource/lancamentoResource";
-import listMeses from '../../services/utils/listMeses';
+import { getMesNome } from '../../services/utils/listMeses';
 import { MDBIcon } from "mdbreact";
 import Swal from 'sweetalert2'
 import { warning }  from  "../../component/Toast";
@@ -21,34 +21,16 @@ const useContainer = () => {
     const [ urlParameters, setUrlParameters ] = useState(history.location.search);
     const [coluns, setColuns] = useState(lancamentos());
     
-    const {meses} = listMeses();
-
-    const getParametroData = (id) => {
-      id = id.replace(/[^\d]+/g,'');
-      meses.forEach( mes => {
-        if(mes.id == id){
-          setMesSelecionado(mes.nome);
-        }
-      });
-    }
-
-    const getMesNome = (nome) => {
-      let mesId = 0;
-      meses.forEach( mes => {
-        if(mes.nome.toUpperCase() == nome){
-          mesId = mes.id;
-        }
-      });
-      return mesId;
-    }
-    
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     
       if(!urlParameters){
         const data = today.toISOString().substring(0,8);
-        setUrlParameters(`?dataInicio=${data}01&dataFinal=${data}30`);
-        getParametroData(data);
+        const mes = today.toISOString().substring(5,7);
+
+        // setUrlParameters(`?dataInicio=${data}01&dataFinal=${data}30`);
+        setUrlParameters(`?mes=${mes}`);
+        setMesSelecionado(getMesNome(mes));
       }
 
       const detalhes = (lancamento) => {
@@ -129,7 +111,7 @@ const useContainer = () => {
               </a>   
           });
           setLancamento(lancamentos);
-          getParametroData(urlParameters);
+          setMesSelecionado(getMesNome(urlParameters));
         }).catch(erro => {
           console.log(erro.response);
         });
@@ -159,7 +141,7 @@ const useContainer = () => {
             }
           });
           setLancamento(lancamentos);
-          getParametroData(urlParameters);
+          setMesSelecionado(getMesNome(urlParameters));
         }).catch(erro => {
           console.log(erro.response);
         });

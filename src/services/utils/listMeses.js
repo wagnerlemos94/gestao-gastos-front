@@ -2,51 +2,51 @@ const ListMeses = () => {
     const meses = [
         {
             id:1,
-            nome:"Janeiro"
+            nome:"JANEIRO"
         },
         {
             id:2,
-            nome:"Fevereiro"
+            nome:"FEVEREIRO"
         },
         {
             id:3,
-            nome:"Março"
+            nome:"MARÇO"
         },
         {
             id:4,
-            nome:"Abril"
+            nome:"ABRIL"
         },
         {
             id:5,
-            nome:"Maio"
+            nome:"MAIO"
         },
         {
             id:6,
-            nome:"Junho"
+            nome:"JUNHO"
         },
         {
             id:7,
-            nome:"Julho"
+            nome:"JULHO"
         },
         {
             id:8,
-            nome:"Agosto"
+            nome:"AGOSTO"
         },
         {
             id:9,
-            nome:"Setembro"
+            nome:"SETEMBRO"
         },
         {
             id:10,
-            nome:"Outubro"
+            nome:"OUTUBRO"
         },
         {
             id:11,
-            nome:"Novembro"
+            nome:"NOVEMBRO"
         },
         {
             id:12,
-            nome:"Dezembro"
+            nome:"DEZEMBRO"
         }
     ];
 
@@ -54,5 +54,15 @@ const ListMeses = () => {
         meses:meses
     }
 }
+export const getMesNome = (id) => {
+    let mesSelecionado = undefined;
+    id = id.replace(/[^\d]+/g,'');
+    ListMeses().meses.forEach( mes => {
+        if(mes.id == id){
+            mesSelecionado = mes.nome.toLowerCase();
+        }
+    });
+    return mesSelecionado;
+  }
 
 export default ListMeses;
