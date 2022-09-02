@@ -9,7 +9,7 @@ import IntlCurrencyInput from "react-intl-currency-input"
 
 const Formulario = () => {
 
-    const { grupos, tipo, parcela,functions, form, titulo, currencyConfig} = useContainer();
+    const { grupos, tipo, parcela, meses ,functions, form, titulo, currencyConfig} = useContainer();
 
     return(
         <Container className="mt-5">
@@ -18,33 +18,40 @@ const Formulario = () => {
                     <Row className="mt-5 mb-5 mr-5 ml-5">    
                         <Col className="col-12">
                             <div className="input-group mb-3">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Descrição</span>
+                                <span className="input-group-text p-1" id="inputGroup-sizing-default">Descrição</span>
                                 <InputMask type="text" name="descricao" id="descricao" value={form.descricao} onChange={e => functions.setValue(prevState => {return { ...prevState, descricao: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Categoria</span>
+                                <span className="input-group-text p-1" id="inputGroup-sizing-default">Categoria</span>
                                 <SelectOptgroup name="categoria" onChange={e => functions.setValue(prevState => {return { ...prevState, categoria: e.target.value }})} array={grupos} selected={form.categoria ? form.categoria : form.categoria} required="true"></SelectOptgroup>
                             </div>
                         </Col>
-                        <Col className="col-6">
+                        <Col className="col">
                             <div className="input-group mb-3 mt-4">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Data</span>
+                                <span className="input-group-text p-1" id="inputGroup-sizing-default">Data</span>
                                 <InputMask type="date" name="data" id="data" value={form.data} onChange={e => functions.setValue(prevState => {return { ...prevState, data: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
+                        <Col className="col">
+                            <div className="input-group mb-3 mt-4">
+                                <span className="input-group-text p-1" id="inputGroup-sizing-default">Mês</span>
+                                <Select name="tipo" onChange={e => functions.setValue(prevState => {return { ...prevState, mes: e.target.value }})} 
+                                array={meses} selected={form.mes ? form.mes : form.mes} required="true"></Select>
+                            </div>
+                        </Col>
                         <Col className="col-6">
                             <div className="input-group mb-3 mt-4">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Tipo</span>
+                                <span className="input-group-text p-1" id="inputGroup-sizing-default">Tipo</span>
                                 <Select name="tipo" onChange={e => functions.setValue(prevState => {return { ...prevState, tipo: e.target.value }})} array={tipo} selected={form.tipo ? form.tipo : form.tipo} required="true"></Select>
                             </div>
                         </Col>
                         <Col className="col">
                             <div className="input-group mb-3 mt-4">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Valor</span>
+                                <span className="input-group-text p-1" id="inputGroup-sizing-default">Valor</span>
                                 <IntlCurrencyInput type="text" currency="BRL" config={currencyConfig}
                                 value={form.valor} onChange={e => functions.setValue(prevState => {return { ...prevState, valor:e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
@@ -53,7 +60,7 @@ const Formulario = () => {
                         { titulo === "Novo cadastro" ? (
                             <Col className="col">
                                 <div className="input-group mb-3 mt-4">
-                                    <span className="input-group-text" id="inputGroup-sizing-default">Parcela</span>
+                                    <span className="input-group-text p-1" id="inputGroup-sizing-default">Parcela</span>
                                     <Select name="parcela" onChange={e => functions.setValue(prevState => {return { ...prevState, parcela: e.target.value }})} array={parcela} selected={form.parcela ? form.parcela : form.parcela} required="true"></Select>
                                 </div>
                             </Col>

@@ -13,19 +13,20 @@ const Lancamento = () => {
     const {
         valores,
         functions,
-        datatable
+        datatable,
+        mesSelecionado
     } = useContainer();
     
     return(
         <Container className="mt-2">    
-            <h1 className="text-center">Lançamentos do Mês</h1>
+            <h1 className="text-center">Lançamentos de {mesSelecionado}</h1>
             <div className="row">          
             
             <div className="text-right">
                 <a href="lancamentos/formulario" className="btn btn-sm btn-primary">Cadastro</a>
             </div>
             </div>
-            <Dropdown>
+            {/* <Dropdown>
                 <Dropdown.Toggle variant="success" className="btn btn-sm p-2" id="dropdown-basic">
                     Filtro
                 </Dropdown.Toggle>
@@ -50,8 +51,8 @@ const Lancamento = () => {
                         </div>
                     </div>
                 </Dropdown.Menu>
-            </Dropdown>
-
+            </Dropdown> */}
+                     
             {valores ?
                 <div className="row mt-2 mb-2">
                     <div className="col-4 ml-5 mr-2"><label className="bg-success p-1">Receita: {functions.formatarMoeda(valores.recebido)}</label></div>
@@ -61,6 +62,7 @@ const Lancamento = () => {
                 :
                 <div></div>
             }
+            <NavB/>
             <DataTable datatable={datatable} />
     </Container>
     );

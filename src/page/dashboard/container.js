@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
-import listMeses from '../../services/utils/listMeses';
 import lancamentoResource from "../../services/resource/lancamentoResource";
 import {formatarMoeda,formatarMoedaDoble} from "../../services/utils/util";
+import { getMesNome } from '../../services/utils/listMeses';
 
 
 const useContainer = () => {
@@ -15,24 +15,14 @@ const useContainer = () => {
         saldo:0
       }
     const [valores, setValores] = useState(valoresInicial);
-    const {meses} = listMeses();
     const [ mesSelecionado, setMesSelecionado ] = useState(null);
-
-    const getMesId = (id) => {
-        id = id.replace(/[^\d]+/g,'');
-        meses.forEach( mes => {
-          if(mes.id == id){
-            setMesSelecionado(mes.nome);
-          }
-        });
-      }
 
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     if(!urlParameters){
         const valorMes = today.toLocaleDateString().substring(4,5);
         setUrlParameters(`?mes=${valorMes}`);
-        getMesId(valorMes);
+        setMesSelecionado(getMesNome(valorMes));
       }
       
       
