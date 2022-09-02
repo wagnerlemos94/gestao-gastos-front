@@ -20,12 +20,12 @@ const useContainer = () =>{
 
     
     const inicialState  = {
-        descricao:undefined,
-        tipo:undefined,
-        categoria:undefined,
-        valor:undefined,
-        data:undefined,
-        parcela:undefined
+        descricao:"",
+        tipo:null,
+        categoria:null,
+        valor:null,
+        data:"",
+        parcela:null
     }
 
     const currencyConfig = {
@@ -113,7 +113,8 @@ const useContainer = () =>{
             }else{
                 lancamentoService.salvar(body).then( response => {
                     success("Registro Cadastrado com sucesso!");
-                    history.push('/lancamentos');
+                    setValue(inicialState);
+                    history.push('/lancamentos/formulario');
                 }).catch( responseErro => {
                     const erros =  responseErro.response.data.errors;
                     Object.values(erros).map(erro => {
