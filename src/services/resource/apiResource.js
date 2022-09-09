@@ -6,7 +6,7 @@ import {expirationToken} from "../utils/util";
 // const baseURL = 'https://gestao-financeira-359011.uc.r.appspot.com';
 //const baseURL = 'http://34.168.254.192:8080';
 // const baseURL = 'http://35.230.115.168:8080';
-const baseUrl = 'http://165.227.252.171:8080';
+const baseURL = 'http://165.227.252.171:8080';
 
 class ApiResource {
     constructor(apiurl){
