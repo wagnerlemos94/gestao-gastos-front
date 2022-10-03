@@ -8,7 +8,12 @@ const useContainer = () =>{
 
     const usuarioResource = new UsuarioResource();
     const history = useHistory();
-    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+    // const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+    const usuario = {
+        nome:"",
+        login:"",
+        senha:""
+    };
     usuario.senha = undefined;
     
     const [value, setValue] = useState(usuario); 

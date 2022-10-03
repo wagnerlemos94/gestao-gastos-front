@@ -41,7 +41,9 @@ const useContainer = () => {
             const usuarioLogado = {
                 id: response.data.id,
                 nome: response.data.nome,
-                login:response.data.login
+                login:response.data.login,
+                ativo:response.data.ativo,
+                root:response.data.root
             }
             localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
             history.push('/dashboard');

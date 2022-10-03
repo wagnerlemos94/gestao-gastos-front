@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import {useState, useEffect} from "react";
-import CategoriaResource from "../../services/resource/categoriaResource";
+import UsuarioResource from "../../services/resource/UsuarioResource";
 import { success, error } from "../../component/Toast";
 
 import { MDBIcon } from "mdbreact";
@@ -8,10 +8,10 @@ import Swal from 'sweetalert2'
 
 const useContainer = () => {
 
-    const service = new CategoriaResource();
+    const service = new UsuarioResource();
 
     const history = useHistory();
-    const [categoria, setCategoria] = useState(null);
+    const [usuario, setUsuario] = useState(null);
     const [titulo, setTitulo] = useState(null); 
 
     const inicialState  = {
@@ -22,7 +22,7 @@ const useContainer = () => {
 
     const coluns = [
         {
-          label: 'Descricao',
+          label: 'Nome',
           field: 'nome',
           width: 150,
           attributes: {
@@ -31,20 +31,26 @@ const useContainer = () => {
           },
           
         },{
-          label: 'Grupo',
-          field: 'grupo',
+          label: 'Login',
+          field: 'login',
           width: 200,
-        },{
+        },
+        {
+          label: 'Status',
+          field: 'status',
+          width: 200,
+        },
+        {
           label: 'Ações',
           field: 'acoes',
           width: 200,
         }
       ]
 
-    const editar = (categoria) => {
-        categoria.acoes = null;
-        categoria.grupo = categoria.grupoId;
-        history.push("/categorias/formulario",categoria)
+    const editar = (usuario) => {
+        usuario.acoes = null;
+        usuario.grupo = usuario.grupoId;
+        history.push("/usuarios/formulario",usuario)
       }
 
       const deletar = (id) => {
@@ -72,19 +78,19 @@ const useContainer = () => {
     const listarCategorias = () => {
         service.listar().then(response => {
           const categorias = response.data;
-          Object.values(categorias).map( categoria => {
-            categoria.acoes =   
+          Object.values(categorias).map( usuario => {
+            usuario.acoes =   
               <>
-              <a className="mr-2" id={categoria.id}
-               onClick={e => editar(categoria)}>
-                <MDBIcon far icon="edit" id={categoria.id} />
+              <a className="mr-2" id={usuario.id}
+               onClick={e => editar(usuario)}>
+                <MDBIcon far icon="edit" id={usuario.id} />
               </a>
-              {/* <a className="ml-2" id={categoria.id} onClick={e => deletar(categoria.id)}>
-                <MDBIcon far icon="trash-alt" id={categoria.id} />
+              {/* <a className="ml-2" id={usuario.id} onClick={e => deletar(usuario.id)}>
+                <MDBIcon far icon="trash-alt" id={usuario.id} />
               </a> */}
               </>            
           });
-          setCategoria(categorias);
+          setUsuario(categorias);
         }).catch(erro => {
           console.log(erro.response);
         });
@@ -102,11 +108,15 @@ const useContainer = () => {
     },[]);
 
     return{
-        rows:categoria ? categoria : [],
+        rows:usuario ? usuario : [],
         coluns:coluns,
         form:value,
+        datatable:{
+          columns: coluns,
+          rows: usuario ? usuario : []
+        },
         titulo:titulo,
-        categoria:categoria,
+        usuario:usuario,
         functions:{
             setValue
         }

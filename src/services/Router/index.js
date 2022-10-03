@@ -13,9 +13,11 @@ import Categoria from '../../page/categoria/index.js';
 import Dashboard from '../../page/dashboard/index';
 import Grupo from '../../page/grupo/index';
 import UsuarioFormulario from '../../page/usuario/formulario/index';
+import Usuario from '../../page/usuario/index';
 
 import Navbar from '../../component/NavBar';
 
+const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
     const token = localStorage.getItem("token");
@@ -60,7 +62,8 @@ const Router = () => {
                     <PrivateRoute exact path="/categorias/formulario" component={() => <CategoriaFormulario />} />  
                     <PrivateRoute exact path="/grupos" component={() => <Grupo />} /> 
                     <PrivateRoute exact path="/grupos/formulario" component={() => <GrupoFormulario />} /> 
-                    <PrivateRoute exact path="/usuarios" component={() => <UsuarioFormulario />} /> 
+                    {usuarioLogado?.root && <PrivateRoute exact path="/usuarios" component={() => <Usuario />} /> }
+                    <PrivateRoute exact path="/usuarios/formulario" component={() => <UsuarioFormulario />} /> 
                 </Switch>
             </BrowserRouter>
     );

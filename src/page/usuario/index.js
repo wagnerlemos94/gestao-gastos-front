@@ -6,19 +6,17 @@ import useContainer from "./container";
 
 const Usuario = () => {
     const {
-        coluns,
-        rows
+        datatable
     } = useContainer();
-
-    const datatable = {
-        columns: coluns,
-        rows: rows
-      };
 
     
     return(
         <Container className="mt-2">
+            <div className="text-right">
+                <a href="usuarios/formulario" className="btn btn-sm btn-primary">Cadastro</a>
+            </div>
             <h1 className="text-center">Usuário</h1>
+            <DataTable datatable={datatable} />
     </Container>
     );
 }

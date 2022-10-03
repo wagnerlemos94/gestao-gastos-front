@@ -11,7 +11,9 @@ const NavbarProp = (props) => {
 
     const stateInicio = {
         nome:"",
-        login:""
+        login:"",
+        root:false,
+        ativo:false
     }
     const [usuarioLogado, setUsuarioLogado] = useState(stateInicio);
     useEffect(()=> {
@@ -19,7 +21,7 @@ const NavbarProp = (props) => {
     },[]);
 
     const usuario = () => {
-        history.push('/usuarios');
+        history.push('/usuarios/formulario');
     }
 
     return(
@@ -30,6 +32,7 @@ const NavbarProp = (props) => {
                         <Nav className="me-auto">
                         <Nav.Link href="/lancamentos">Lançamento</Nav.Link>
                         <Nav.Link href="/categorias">Categoria</Nav.Link>
+                        {usuarioLogado.root && <Nav.Link href="/usuarios">Usuários</Nav.Link>}
                     </Nav>
                     <Dropdown>
                         <Dropdown.Toggle className="btn-sm" id="dropdown-basic">
