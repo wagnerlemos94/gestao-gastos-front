@@ -12,6 +12,10 @@ export const lancamentos = () =>{
           label: "Grupo",
           field: "grupo",
           width: 270,
+        },{
+          label: "Status",
+          field: "status",
+          width: 270,
         },
         {
           label: 'Tipo',
@@ -54,6 +58,10 @@ export const lancamentosDetalhe = () =>{
         {
           label: 'Tipo',
           field: 'tipo',
+          width: 270,
+        },{
+          label: "Status",
+          field: "status",
           width: 270,
         },
         {
