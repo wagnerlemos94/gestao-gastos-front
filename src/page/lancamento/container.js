@@ -38,7 +38,8 @@ const useContainer = () => {
         listarLancamentosPorCategoria(lancamento.categoriaId,lancamento.tipo);
       }
       const editar = (lancamento) => {
-        lancamento.acoes = null
+        lancamento.status = lancamento.status.props.value;
+        lancamento.acoes = null;
         lancamento.tipo = lancamento.tipo == "RECEITA" ? 1 : 2;
         lancamento.categoria = lancamento.idCategoria;
         lancamento.data = lancamento.data.split('/').reverse().join('-');
@@ -138,6 +139,22 @@ const useContainer = () => {
                   <MDBIcon icon="trash-alt" id={lancamento.id} />
                 </a>
               </>            
+            }
+            if(lancamento.status === "PENDENTE"){
+              lancamento.status =   
+                <spam className="bg-warning" value={lancamento.status}>
+                  {lancamento.status}
+                </spam>      
+            }if(lancamento.status === "PAGO"){
+              lancamento.status =   
+                <spam className="bg-success" value={lancamento.status}>
+                  {lancamento.status}
+                </spam>      
+            }else{
+              lancamento.status =   
+                <spam className="bg-danger" value={lancamento.status}>
+                  {lancamento.status}
+                </spam>      
             }
           });
           setLancamento(lancamentos);
