@@ -22,8 +22,8 @@ const Formulario = () => {
                             </div>
                         </Col>
                         <Col className="text-left">
-                            <Button type="button" onClick={e => functions.salvar(form)} className="btn-sm">Salvar</Button>
-                            <Button className="btn-sm" variant="danger" href="/grupos">Cancelar</Button>
+                            <Button className="btn-sm pl-2 pr-2 pt-2" variant="danger" href="/grupos">Cancelar</Button>
+                            <Button className="btn-sm pl-3 pr-3 pt-2" type="button" onClick={e => functions.salvar(form)}>Salvar</Button>
                         </Col>
                     </Row>
                 </Form>

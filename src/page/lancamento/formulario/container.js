@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import listMeses from '../../../services/utils/listMeses';
 import LancamentoResource from "../../../services/resource/lancamentoResource";
+import StatusLancamentoResource from "../../../services/resource/statusLancamentoResource";
 import GrupoResource from "../../../services/resource/GrupoResource";
 import {formatarMoedaDoble} from "../../../services/utils/util";
 
@@ -10,10 +11,12 @@ import { useHistory } from 'react-router-dom';
 const useContainer = () =>{
 
     const lancamentoService = new LancamentoResource();
+    const statusLancamentoService = new StatusLancamentoResource();
     const grupoService = new GrupoResource();
 
 
     const [grupos, setcategoria] = useState([]);
+    const [status, setStatus] = useState([]);
     const {meses} = listMeses();
     
     const history = useHistory();
@@ -25,7 +28,8 @@ const useContainer = () =>{
         categoria:null,
         valor:null,
         data:"",
-        parcela:null
+        parcela:null,
+        status:null
     }
 
     const currencyConfig = {
@@ -74,7 +78,7 @@ const useContainer = () =>{
         let isValidate = true;
 
         Object.keys(form).forEach((chave) => {          
-            if(chave !== "acoes" && !form[chave]){
+            if(chave !== "acoes" && !form[chave] && chave != "status"){
                 error(`Campo ${chave} Obrigatório!`);
                 isValidate = false;
                 return isValidate;
@@ -92,6 +96,7 @@ const useContainer = () =>{
                 valor:formatarMoedaDoble(form.valor),
                 data:form.data,
                 categoria:form.categoria,
+                status:form.status,
                 parcela:form.parcela,
                 mes:form.mes
                 
@@ -138,6 +143,12 @@ const useContainer = () =>{
             setcategoria(response.data);
         }).catch(responseErro => {
             console.log(responseErro.response);
+        });
+        statusLancamentoService.listar().then(response => {
+            console.log(response.data)
+            setStatus(response.data);
+        }).catch(responseErro => {
+            console.log(responseErro.response);
         })
     },[]);
 
@@ -145,6 +156,7 @@ const useContainer = () =>{
         currencyConfig,
         titulo:titulo,
         grupos:grupos,
+        status:status,
         meses,
         tipo:tipo,
         parcela:arrayParcelar(),

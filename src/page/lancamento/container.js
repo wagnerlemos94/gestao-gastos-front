@@ -140,22 +140,7 @@ const useContainer = () => {
                 </a>
               </>            
             }
-            if(lancamento.status === "PENDENTE"){
-              lancamento.status =   
-                <spam className="bg-warning" value={lancamento.status}>
-                  {lancamento.status}
-                </spam>      
-            }if(lancamento.status === "PAGO"){
-              lancamento.status =   
-                <spam className="bg-success" value={lancamento.status}>
-                  {lancamento.status}
-                </spam>      
-            }else{
-              lancamento.status =   
-                <spam className="bg-danger" value={lancamento.status}>
-                  {lancamento.status}
-                </spam>      
-            }
+            renderezarStatus(lancamento);
           });
           setLancamento(lancamentos);
           setMesSelecionado(getMesNome(urlParameters));
@@ -174,6 +159,24 @@ const useContainer = () => {
         listarLancamentos();
     },[urlParameters]);
 
+    const renderezarStatus = (lancamento) =>{
+      if(lancamento.status === "PENDENTE"){
+        lancamento.status =   
+          <spam className="bg-warning" value={lancamento.status}>
+            {lancamento.status}
+          </spam>      
+      }if(lancamento.status === "PAGO"){
+        lancamento.status =   
+          <spam className="bg-success" value={lancamento.status}>
+            {lancamento.status}
+          </spam>      
+      }else{
+        lancamento.status =   
+          <spam className="bg-danger" value={lancamento.status}>
+            {lancamento.status}
+          </spam>      
+      }
+    }
 
     return{
         mesSelecionado:mesSelecionado,
