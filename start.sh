@@ -1,1 +1,1 @@
-PORT=80 npm start
+PORT=80 npm start ./
