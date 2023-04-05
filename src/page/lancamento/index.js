@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Form, Button, Row, Col, Dropdown } from "react-bootstrap";
 import DataTable from "../../component/DataTable";
 import InputMask from 'react-input-mask';
+import Select from '../../component/Select';
 
 import useContainer from "./container";
 import NavB from "./navBar";
@@ -14,7 +15,10 @@ const Lancamento = () => {
         valores,
         functions,
         datatable,
-        mesSelecionado
+        mesSelecionado,
+        status,
+        form,
+        exibirStatus
     } = useContainer();
     
     return(
@@ -63,6 +67,20 @@ const Lancamento = () => {
                 <div></div>
             }
             <NavB/>
+            {exibirStatus ?
+                <div className="row mt-4">
+                    <div className="input-group col-sm-3">
+                        <span className="input-group-text p-1" id="inputGroup-sizing-default">Status</span>
+                        <Select name="status" onChange={e => functions.setValue(prevState => {return { ...prevState, status: parseInt(e.target.value) }})} array={status} selected={form.status ? form.status : form.status} required="true"></Select>
+                    </div>
+                    <div className="col-sm-4">
+                        <a className="btn btn-sm btn-primary" onClick={e => functions.atualizarStatus()}>Atualizar</a>
+                    </div>
+                </div>
+                :
+                <div></div>
+            }
+            
             <DataTable datatable={datatable} />
     </Container>
     );

@@ -28,6 +28,10 @@ class LancamentoResource extends ApiResource{
     atualizar(id,body){
         return this.put(id,body);
     }
+
+    atualizarStatus(body){
+        return this.put("status",body);
+    }
 }
 
 export default LancamentoResource;
