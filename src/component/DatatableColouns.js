@@ -4,10 +4,6 @@ export const lancamentos = () =>{
           label: 'Categoria',
           field: 'categoria',
           width: 150,
-          attributes: {
-            'aria-controls': 'DataTable',
-            'aria-label': 'Name',
-          },
         },{
           label: "Grupo",
           field: "grupo",
@@ -55,6 +51,11 @@ export const lancamentosDetalhe = () =>{
           label: 'Tipo',
           field: 'tipo',
           width: 270,
+        },{
+          label: "Status",
+          field: "status",
+          width: 270,
+          color:"red"
         },
         {
           label: 'Valor',

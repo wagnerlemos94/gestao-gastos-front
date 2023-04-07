@@ -15,7 +15,7 @@ const Select = (props) => {
                 {
                     props.array.map((value, index) => {
                         return <>
-                        <option selected={props.selected == value.id} name={props.name} value={value.id}>{value.nome}</option>
+                        <option selected={(props.selected == value.id || props.selected == value.nome)} name={props.name} value={value.id}>{value.nome}</option>
                         </>
                         
                     })
