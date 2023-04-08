@@ -12,9 +12,10 @@ const useContainer = () =>{
     const usuario = {
         nome:"",
         login:"",
-        senha:""
+        senha:"",
+        status:"",
+        email:""
     };
-    usuario.senha = undefined;
     
     const [value, setValue] = useState(usuario); 
     const [titulo, setTitulo] = useState(null); 
@@ -24,7 +25,7 @@ const useContainer = () =>{
         let isValidate = true;
 
         Object.keys(form).forEach((chave) => {          
-            if(chave !== "acoes" && !form[chave]){
+            if(chave !== "acoes" && chave !== "root" && !form[chave]){
                 error(`Campo ${chave} Obrigatório!`);
                 isValidate = false;
                 return isValidate;
@@ -39,12 +40,14 @@ const useContainer = () =>{
             let body = {
                 nome:form.nome,
                 login:form.login,
-                senha:form.senha
+                senha:form.senha,
+                email:form.email
             }        
+
+            console.log(body);
             
             usuarioResource.atualizar(value.id, body).then( response => {
-                history.push('/categorias');
-                Deslogar();
+                history.push('/usuarios');
                 success("Registro Editado com sucesso!");
             }).catch( responseErro => {
                 const erros =  responseErro.response.data.errors;
@@ -60,7 +63,8 @@ const useContainer = () =>{
     
     useEffect(()=> {
         if(history.location.state){
-            setValue(JSON.parse(localStorage.getItem("usuarioLogado")));
+            // setValue(JSON.parse(localStorage.getItem("usuarioLogado")));
+            setValue(history.location.state);
             setTitulo("Editar cadastro");
         }else{
             setTitulo("Novo cadastro");

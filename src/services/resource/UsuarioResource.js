@@ -20,6 +20,10 @@ class UsuarioResource extends ApiResource{
     atualizar(id,body){
         return this.put(`/${id}`,body);
     }
+
+    atualizarStatus(urlParam){
+        return this.put(`/atualizarStatus${urlParam}`,"");
+    }
 }
 
 export default UsuarioResource;
