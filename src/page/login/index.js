@@ -35,6 +35,7 @@ const Login = () => {
                                 onChange={e => functions.setValue(prevState => {return { ...prevState, senha: e.target.value }})}  required/>
                             </Form.Group>
                             <Button type="button" onClick={(e) => functions.login(form)} variant="primary" className="col-12">Logar</Button>
+                            <a className="pl-1" href="" onClick={e => functions.cadastroUsuario()}>Cadastre-se</a>
                         </Form>    
                     </Card>
                 </Col>

@@ -63,7 +63,7 @@ const Router = () => {
                     <PrivateRoute exact path="/grupos" component={() => <Grupo />} /> 
                     <PrivateRoute exact path="/grupos/formulario" component={() => <GrupoFormulario />} /> 
                     {usuarioLogado?.root && <PrivateRoute exact path="/usuarios" component={() => <Usuario />} /> }
-                    <PrivateRoute exact path="/usuarios/formulario" component={() => <UsuarioFormulario />} /> 
+                    <PublicRoute exact path="/usuarios/formulario" component={() => <UsuarioFormulario />} /> 
                 </Switch>
             </BrowserRouter>
     );

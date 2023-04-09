@@ -6,14 +6,14 @@ import Select from '../../../component/Select';
 
 const Formulario = () => {
 
-    const { functions, titulo, form } = useContainer();
+    const { functions, titulo, form, cadastrese } = useContainer();
 
     return(
         <Container className="mt-5">
             <Card className="text-center ml-5 mr-5" title={titulo}>
                 <Form>
                     <Row className="mt-5">    
-                        <Col className="col-sm-6">
+                        <Col className={`col-sm-${cadastrese ? '12':'6'}`}>
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
                                 <input type="text" name="nome" id="nome" value={form.nome}
@@ -23,12 +23,13 @@ const Formulario = () => {
                         </Col>
                         <Col className="col-sm-6">
                             <div className="input-group mb-3">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Login</span>
-                                <input type="text" name="login" id="login" value={form.login}
+                                <span className="input-group-text" id="inputGroup-sizing-default">CPF</span>
+                                <input type="text" name="login" maxLength={11} id="login" value={form.login}
                                 onChange={e => functions.setValue(prevState => {return { ...prevState, login: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
                         </Col>
+                        {!cadastrese?
                         <Col className="col-sm-6">
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Senha</span>
@@ -36,7 +37,8 @@ const Formulario = () => {
                                 onChange={e => functions.setValue(prevState => {return { ...prevState, senha: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
-                        </Col>  
+                        </Col> :(<></>)
+                        }
                         <Col className="col-sm-6">
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Email</span>

@@ -12,6 +12,7 @@ const NavbarProp = (props) => {
     const stateInicio = {
         nome:"",
         login:"",
+        email:"",
         root:false,
         ativo:false
     }
@@ -21,7 +22,7 @@ const NavbarProp = (props) => {
     },[]);
 
     const usuario = () => {
-        history.push('/usuarios/formulario');
+        history.push('/usuarios/formulario',usuarioLogado);
     }
 
     return(

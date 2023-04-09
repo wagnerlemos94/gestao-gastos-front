@@ -42,6 +42,7 @@ const useContainer = () => {
                 id: response.data.id,
                 nome: response.data.nome,
                 login:response.data.login,
+                email:response.data.email,
                 ativo:response.data.ativo,
                 root:response.data.root
             }
@@ -52,6 +53,10 @@ const useContainer = () => {
         });
     }
 
+    const cadastroUsuario = () => {
+        history.push('/usuarios/formulario', {cadastrese: true});
+    }
+
     useEffect(()=> {
         setValue(inicialState);
     },[]);
@@ -60,7 +65,8 @@ const useContainer = () => {
         form:value,
         functions: {
             login,
-            setValue
+            setValue,
+            cadastroUsuario
         } 
     }
 }

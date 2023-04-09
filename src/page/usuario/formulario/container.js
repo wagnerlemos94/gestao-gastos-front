@@ -19,13 +19,14 @@ const useContainer = () =>{
     
     const [value, setValue] = useState(usuario); 
     const [titulo, setTitulo] = useState(null); 
+    const [cadastrese, setCadastrese] = useState(false); 
 
     const validarFormulario = (form) => {
 
         let isValidate = true;
 
         Object.keys(form).forEach((chave) => {          
-            if(chave !== "acoes" && chave !== "root" && !form[chave]){
+            if(chave !== "acoes" && chave !== "root" && chave !== "status" && !form[chave]){
                 error(`Campo ${chave} Obrigatório!`);
                 isValidate = false;
                 return isValidate;
@@ -36,6 +37,9 @@ const useContainer = () =>{
     }
 
     const salvar = (form) => {
+        if(cadastrese){
+            form.senha = form.login
+        }
         if(validarFormulario(form)){
             let body = {
                 nome:form.nome,
@@ -46,7 +50,7 @@ const useContainer = () =>{
 
             console.log(body);
             
-            usuarioResource.atualizar(value.id, body).then( response => {
+            usuarioResource.cadastrar(body).then( response => {
                 history.push('/usuarios');
                 success("Registro Editado com sucesso!");
             }).catch( responseErro => {
@@ -62,10 +66,18 @@ const useContainer = () =>{
 
     
     useEffect(()=> {
+        console.log(history.location.state);
+        if(history.location.state?.cadastrese){
+            setCadastrese(history.location.state.cadastrese);
+            setTitulo("Novo cadastro");
+            return false;
+        }
+
         if(history.location.state){
             // setValue(JSON.parse(localStorage.getItem("usuarioLogado")));
             setValue(history.location.state);
             setTitulo("Editar cadastro");
+            return false;
         }else{
             setTitulo("Novo cadastro");
         }
@@ -74,6 +86,7 @@ const useContainer = () =>{
     return{
         titulo:titulo,
         form:value,
+        cadastrese:cadastrese,
         functions:{
             salvar,
             setValue
