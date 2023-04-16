@@ -28,6 +28,11 @@ class ApiResource {
         const requestUrl = `${baseURL}${this.apiurl}${resource}`
         return axios["post"](requestUrl, body, this.getConfig());
     }
+
+    postUsuarioCadastro(resource, body){
+        const requestUrl = `${baseURL}${this.apiurl}${resource}`
+        return axios["post"](requestUrl, body);
+    }
     
     put(resource, body){
         expirationToken();

@@ -50,15 +50,17 @@ const useContainer = () =>{
 
             console.log(body);
             
-            usuarioResource.cadastrar(body).then( response => {
-                history.push('/usuarios');
-                success("Registro Editado com sucesso!");
+            usuarioResource.cadastrarUsuarioCadastro(body).then( response => {
+                history.push('/');
+                success("Registro Cadastrado com sucesso!");
             }).catch( responseErro => {
                 const erros =  responseErro.response.data.errors;
                 if(erros){
                     Object.values(erros).map(erro => {
                         error(erro.defaultMessage);
                     });
+                }else{
+                    error("Erro ao Cadastrar!")
                 }
             });
         }

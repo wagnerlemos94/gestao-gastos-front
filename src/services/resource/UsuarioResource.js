@@ -25,6 +25,10 @@ class UsuarioResource extends ApiResource{
         return this.post(`/`,body);
     }
 
+    cadastrarUsuarioCadastro(body){
+        return this.postUsuarioCadastro(``,body);
+    }
+
     atualizarStatus(urlParam){
         return this.put(`/atualizarStatus${urlParam}`,"");
     }
