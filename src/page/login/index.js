@@ -16,8 +16,11 @@ const Login = () => {
     
     return(
         <div className="" style={{ 
+            position: "relative",
+            height: "100vh",
+            width: "100vw",
             backgroundImage: `url(${background})`,
-            height:"640px"
+            // height:"640px"
           }}>
             <Row className="justify-content-md-end mr-4">
                 <Col md="auto" className="mt-5">
