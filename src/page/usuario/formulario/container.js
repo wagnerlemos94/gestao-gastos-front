@@ -2,13 +2,12 @@ import {useState, useEffect} from "react";
 import { success, error}  from  "../../../component/Toast";
 import { useHistory } from 'react-router-dom';
 import UsuarioResource from "../../../services/resource/UsuarioResource";
-import {Deslogar} from '../../../services/utils/util';
+import { cpf } from 'cpf-cnpj-validator'; 
 
 const useContainer = () =>{
 
     const usuarioResource = new UsuarioResource();
     const history = useHistory();
-    // const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     const usuario = {
         nome:"",
         login:"",
@@ -40,16 +39,20 @@ const useContainer = () =>{
         if(cadastrese){
             form.senha = form.login
         }
+
+        if(!cpf.isValid(form.login)){
+            error("CPF inválido");
+            return false;
+        }
+
         if(validarFormulario(form)){
             let body = {
                 nome:form.nome,
-                login:form.login,
+                login:form.login.replace(/[^0-9]/g,''),
                 senha:form.senha,
                 email:form.email
             }        
 
-            console.log(body);
-            
             usuarioResource.cadastrarUsuarioCadastro(body).then( response => {
                 history.push('/');
                 success("Registro Cadastrado com sucesso!");
@@ -68,7 +71,6 @@ const useContainer = () =>{
 
     
     useEffect(()=> {
-        console.log(history.location.state);
         if(history.location.state?.cadastrese){
             setCadastrese(history.location.state.cadastrese);
             setTitulo("Novo cadastro");
@@ -76,7 +78,6 @@ const useContainer = () =>{
         }
 
         if(history.location.state){
-            // setValue(JSON.parse(localStorage.getItem("usuarioLogado")));
             setValue(history.location.state);
             setTitulo("Editar cadastro");
             return false;

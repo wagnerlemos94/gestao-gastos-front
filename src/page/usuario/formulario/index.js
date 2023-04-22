@@ -2,7 +2,7 @@ import { Button, Col, Container, Row, Form } from "react-bootstrap";
 
 import Card from "../../../component/Card";
 import useContainer from "./container";
-import Select from '../../../component/Select';
+import InputMask from 'react-input-mask';
 
 const Formulario = () => {
 
@@ -12,7 +12,7 @@ const Formulario = () => {
         <Container className="mt-5">
             <Card className="text-center ml-5 mr-5" title={titulo}>
                 <Form>
-                    <Row className="mt-5">    
+                    <Row className="mt-5">   
                         <Col className={`col-sm-${cadastrese ? '12':'6'}`}>
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
@@ -24,7 +24,7 @@ const Formulario = () => {
                         <Col className="col-sm-6">
                             <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroup-sizing-default">CPF</span>
-                                <input type="text" name="login" maxLength={11} id="login" value={form.login}
+                                <InputMask type="text" mask="999.999.999-99" name="login" id="login" value={form.login}
                                 onChange={e => functions.setValue(prevState => {return { ...prevState, login: e.target.value }})} 
                                 className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required/>
                             </div>
