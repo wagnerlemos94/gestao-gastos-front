@@ -9,12 +9,20 @@ class CategoriaResource extends ApiResource{
         return this.get("",``);
     }
 
+    listarAtivos(){
+        return this.get("ativo",``);
+    }
+
     salvar(body){
         return this.post('',body);
     }
 
     atualizar(id,body){
         return this.put(id,body);
+    }
+
+    atualizarStatus(urlParam){
+        return this.put(`ativo${urlParam}`,"");
     }
 }
 
