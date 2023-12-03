@@ -20,7 +20,7 @@ const useContainer = () => {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     if(!urlParameters){
-        const valorMes = today.toLocaleDateString().substring(4,5);
+        const valorMes = today.getMonth() + 1;
         setUrlParameters(`?mes=${valorMes}`);
         setMesSelecionado(getMesNome(valorMes));
       }

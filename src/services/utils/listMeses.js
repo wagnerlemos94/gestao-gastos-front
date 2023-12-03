@@ -55,8 +55,8 @@ const ListMeses = () => {
     }
 }
 export const getMesNome = (id) => {
+    console.log(id)
     let mesSelecionado = undefined;
-    id = id.replace(/[^\d]+/g,'');
     ListMeses().meses.forEach( mes => {
         if(mes.id == id){
             mesSelecionado = mes.nome.toLowerCase();
