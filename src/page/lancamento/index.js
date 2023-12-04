@@ -17,13 +17,15 @@ const Lancamento = () => {
         datatable,
         mesSelecionado,
         status,
+        arrayAno,
+        ano,
         form,
         exibirStatus
     } = useContainer();
     
     return(
         <Container className="mt-2">    
-            <h1 className="text-center">Lançamentos de {mesSelecionado}</h1>
+            <h1 className="text-center">Lançamentos de {mesSelecionado} / {ano}</h1>
             <div className="row">          
             
             <div className="text-right">
@@ -66,7 +68,12 @@ const Lancamento = () => {
                 :
                 <div></div>
             }
-            <NavB/>
+            <NavB ano={ano} onClick={(id,nome) => functions.changeMes(id,nome)}>
+                <div className="">
+                    {/* <Select placeholder="Ano" name="arrayAno" onChange={e => functions.setValue(prevState => {return { ...prevState, ano: parseInt(e.target.value) }})} array={arrayAno} selected={form.ano ? form.ano : form.ano} required="true"></Select> */}
+                    <Select placeholder="Ano" name="arrayAno" onChange={e => functions.changeAno(e.target.value)} array={arrayAno} selected={form.ano ? form.ano : form.ano} required="true"></Select>
+                </div>
+            </NavB>
             {exibirStatus ?
                 <div className="row mt-4">
                     <div className="input-group col-sm-3">

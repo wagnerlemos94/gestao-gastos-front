@@ -11,7 +11,7 @@ const Select = (props) => {
         
         :
         <Form.Select onChange={props.onChange} required={props.required}>
-            <option disabled selected={!props.selected}>Selecione...</option>
+            <option disabled selected={!props.selected}>{props.placeholder ? props.placeholder : "Selecione..."}</option>
                 {
                     props.array.map((value, index) => {
                         return <>

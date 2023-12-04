@@ -55,14 +55,23 @@ const ListMeses = () => {
     }
 }
 export const getMesNome = (id) => {
-    console.log(id)
     let mesSelecionado = undefined;
     ListMeses().meses.forEach( mes => {
         if(mes.id == id){
-            mesSelecionado = mes.nome.toLowerCase();
+            mesSelecionado = mes.nome;
         }
     });
     return mesSelecionado;
   }
+
+export const getMesId = (nome) => {
+let mesSelecionado = undefined;
+ListMeses().meses.forEach( mes => {
+    if(mes.nome.toLowerCase() == nome.toLowerCase()){
+        mesSelecionado = mes.id;
+    }
+});
+return mesSelecionado;
+}
 
 export default ListMeses;

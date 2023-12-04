@@ -1,15 +1,14 @@
 import {useState, useEffect} from "react";
 import lancamentoResource from "../../services/resource/lancamentoResource";
 import StatusLancamentoResource from "../../services/resource/statusLancamentoResource";
-import { getMesNome } from '../../services/utils/listMeses';
+import { getMesNome, getMesId } from '../../services/utils/listMeses';
 import { MDBIcon } from "mdbreact";
 import Swal from 'sweetalert2'
 import { warning }  from  "../../component/Toast";
 import {formatarMoeda,formatarMoedaDoble} from "../../services/utils/util";
 import { lancamentos, lancamentosDetalhe } from "../../component/DatatableColouns";
 import { success, error}  from  "../../component/Toast";
-
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams} from 'react-router-dom';
 
 const useContainer = () => {
   
@@ -20,32 +19,57 @@ const useContainer = () => {
     const [valores, setValores] = useState(null);
     const [lancamento, setLancamento] = useState(null);
     const [filtroData, setFiltroData] = useState(null);
-    const [ mesSelecionado, setMesSelecionado ] = useState(null);
-    const [ urlParameters, setUrlParameters ] = useState(history.location.search);
+    const dataAtual = new Date();
+    const [ano, setAno] = useState(dataAtual.getFullYear());
+    const mes = dataAtual.getMonth() + 1;
+    const [ mesSelecionado, setMesSelecionado ] = useState(getMesNome(mes));
+    const [ urlParameters, setUrlParameters ] = useState();
     const [coluns, setColuns] = useState(lancamentos());
     const [status, setStatus] = useState([]);
+    const [arrayAno, setArrayAno] = useState(obterArrayAno());
     const [exibirStatus, setExibirStatus] = useState(false);
     const [lancamentoGrupo, setLancamentoGrupo] = useState(null);
-    
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    
-    const data = today.toISOString().substring(0,8);
-    const mes = today.toISOString().substring(5,7);
+    const params = new URLSearchParams(window.location.search);    
 
-    if(!urlParameters){
+    useEffect(() => {
+      listarLancamentos();
+      statusLancamentoService.listar().then(response => {
+        setStatus(response.data);
+      }).catch(responseErro => {
+          console.log(responseErro.response);
+      })
+  },[urlParameters]);
 
-      // setUrlParameters(`?dataInicio=${data}01&dataFinal=${data}30`);
-      setUrlParameters(`?mes=${mes}`);
-      setMesSelecionado(getMesNome(mes));
+    function obterArrayAno(){
+      return [
+        {
+        id:dataAtual.getFullYear() - 1,
+        nome: dataAtual.getFullYear() - 1
+      },
+        {
+        id:dataAtual.getFullYear(),
+        nome: dataAtual.getFullYear() 
+      },
+        {
+        id:dataAtual.getFullYear() + 1,
+        nome: dataAtual.getFullYear() + 1
+      }
+    ]
     }
+
+    // if(!urlParameters){
+    //   setUrlParameters(`?mes=${mes}&ano=${ano}`);
+    //   setMesSelecionado(getMesNome(mes));
+    // }
 
       const inicialState  = {
         categoria:null,
         usuario:null,
         mes: null,
-        status:null
+        status:null,
+        ano: ano
       }
+
       const [value, setValue] = useState(inicialState); 
 
       const detalhes = (lancamento) => {
@@ -94,12 +118,8 @@ const useContainer = () => {
           listarLancamentosPorCategoria();
         }else{
           listarLancamentosAgrupada();
+          listarValores(urlParameters);
         }
-        service.listarValores(urlParameters).then(response => {
-          setValores(response.data);
-        }).catch(erro => {
-          console.log(erro.response);
-        });
       }
 
       const filtro = () => {
@@ -121,8 +141,30 @@ const useContainer = () => {
         
       }
 
+      function changeAno(ano){
+        if(mesSelecionado == null){
+          setUrlParameters(`?mes=${mes}&ano=${ano}`);
+        }else{
+          setUrlParameters(`?mes=${getMesId(mesSelecionado)}&ano=${ano}`);
+        }
+        setValue(prevState => {return { ...prevState, ano: parseInt(ano)}})
+        setAno(ano)
+        listarLancamentosAgrupada();
+      }
+
+      function changeMes(idMes,nomeMes){
+        if(mesSelecionado == null){
+          setUrlParameters(`?mes=${mes}&ano=${value.ano}`);
+        }else{
+          setUrlParameters(`?mes=${getMesId(nomeMes)}&ano=${value.ano}`);
+        }
+        setValue(prevState => {return { ...prevState, ano: parseInt(value.ano)}})
+        setMesSelecionado(nomeMes)
+        listarLancamentosAgrupada();        
+      }
       const listarLancamentosAgrupada = () => {
         service.listarAgrupada(urlParameters).then(response => {
+          setExibirStatus(false);
           const lancamentos = response.data;
           Object.values(lancamentos).map( lancamento => {
             lancamento.valor = formatarMoeda(lancamento.valor);
@@ -131,17 +173,23 @@ const useContainer = () => {
                 <MDBIcon icon="search" />
               </a>   
           });
+
+          setMesSelecionado(mesSelecionado);
           setLancamento(lancamentos);
-          setMesSelecionado(getMesNome(urlParameters));
         }).catch(erro => {
           console.log(erro.response);
-        });
+        });        
+      }
+
+      function listarValores(){
+        console.log(urlParameters)
         service.listarValores(urlParameters).then(response => {
           setValores(response.data);
         }).catch(erro => {
           console.log(erro.response);
         });
       }
+
       const listarLancamentosPorCategoria = (id,tipo) => {
         const parametro = `${urlParameters}&categoria=${id}&tipo=${tipo}`;
         service.listarLancamentoPorCategoria(parametro).then(response => {
@@ -163,12 +211,6 @@ const useContainer = () => {
             renderezarStatus(lancamento);
           });
           setLancamento(lancamentos);
-          setMesSelecionado(getMesNome(urlParameters));
-        }).catch(erro => {
-          console.log(erro.response);
-        });
-        service.listarValores(urlParameters).then(response => {
-          setValores(response.data);
         }).catch(erro => {
           console.log(erro.response);
         });
@@ -198,16 +240,6 @@ const useContainer = () => {
           }
         });
       }
-      
-      
-      useEffect(() => {
-        statusLancamentoService.listar().then(response => {
-          setStatus(response.data);
-      }).catch(responseErro => {
-          console.log(responseErro.response);
-      })
-        listarLancamentos();
-    },[urlParameters]);
 
     const renderezarStatus = (lancamento) =>{
       if(lancamento.status === "PENDENTE"){
@@ -233,6 +265,8 @@ const useContainer = () => {
         filtroData:filtroData,
         valores:valores,
         status:status,
+        arrayAno:arrayAno,
+        ano:ano,
         form:value,
         exibirStatus:exibirStatus,
         datatable:{
@@ -244,7 +278,9 @@ const useContainer = () => {
           setFiltroData,
           filtro,
           setValue,
-          atualizarStatus
+          atualizarStatus,
+          changeAno,
+          changeMes
         }
     }
 }
