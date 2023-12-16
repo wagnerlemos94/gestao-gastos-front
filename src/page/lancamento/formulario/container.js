@@ -18,6 +18,21 @@ const useContainer = () =>{
     const [grupos, setcategoria] = useState([]);
     const [status, setStatus] = useState([]);
     const {meses} = listMeses();
+    const dataAtual = new Date();
+    const anos = [
+        {
+            id: (dataAtual.getFullYear() - 1),
+            nome: (dataAtual.getFullYear() - 1)
+        },
+        {
+            id: dataAtual.getFullYear(),
+            nome: dataAtual.getFullYear()
+        },
+        {
+            id: (dataAtual.getFullYear() + 1),
+            nome: (dataAtual.getFullYear() + 1)
+        },
+    ]
     
     const history = useHistory();
 
@@ -98,7 +113,8 @@ const useContainer = () =>{
                 categoria:form.categoria,
                 status:form.status,
                 parcela:form.parcela,
-                mes:form.mes
+                mes:form.mes,
+                ano:form.ano
                 
             }      
             if(history.location.state){
@@ -158,6 +174,7 @@ const useContainer = () =>{
         grupos:grupos,
         status:status,
         meses,
+        anos,
         tipo:tipo,
         parcela:arrayParcelar(),
         form:value,
