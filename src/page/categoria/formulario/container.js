@@ -28,8 +28,7 @@ const useContainer = () =>{
 
         let isValidate = true;
 
-        Object.keys(form).forEach((chave) => {          
-            console.log(chave + " - " + form[chave]);
+        Object.keys(form).forEach((chave) => {     
             if(chave !== "acoes" && !form[chave]){
                 error(`Campo ${chave} Obrigatório!`);
                 isValidate = false;
@@ -66,10 +65,9 @@ const useContainer = () =>{
                     success("Registro Cadastrado com sucesso!");
                     history.push('/categorias');
                 }).catch( responseErro => {
-                    const erros =  responseErro.response.data.errors;
-                    Object.values(erros).map(erro => {
-                        error(erro.defaultMessage);
-                    });
+                    const erros =  responseErro.response.data;
+                    console.log(erros);
+                    error(erros.mensagemUsuario);
                 });
             }
         }

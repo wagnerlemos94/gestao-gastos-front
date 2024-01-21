@@ -59,7 +59,7 @@ const useContainer = () => {
           denyButtonText: `Cancelar`,
         }).then((result) => {
           if (result.isConfirmed) {
-            service.delete(id).then(response => {
+            service.excluir(id).then(response => {
               Swal.fire('Registro Deletado com sucesso!', '', 'success')
               listarCategorias();
             }).catch( erro => {
@@ -84,9 +84,9 @@ const useContainer = () => {
               <a onClick={e =>  {!isStatus(categoria.ativo) ? AlterarStatus(true, categoria.id) : AlterarStatus(false, categoria.id)}}>
                   <Icon path={mdiToggleSwitchOff } title={isStatus(categoria.ativo) ? "Ativar" : "Desativar"} size={1.3} horizontal color={isStatus(categoria.ativo) ? "green" : "gray"} />
                 </a>
-              {/* <a className="ml-2" id={categoria.id} onClick={e => deletar(categoria.id)}>
+              <a className="ml-2" id={categoria.id} onClick={e => deletar(categoria.id)}>
                 <MDBIcon far icon="trash-alt" id={categoria.id} />
-              </a> */}
+              </a>
               </>            
           });
           setCategoria(categorias);

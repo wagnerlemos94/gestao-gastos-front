@@ -24,6 +24,10 @@ class CategoriaResource extends ApiResource{
     atualizarStatus(urlParam){
         return this.put(`ativo${urlParam}`,"");
     }
+
+    excluir(id){
+        return this.delete(id);
+    }
 }
 
 export default CategoriaResource;
